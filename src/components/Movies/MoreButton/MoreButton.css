@@ -1,0 +1,12 @@
+.more-button {
+    width: 100%;
+    max-width: 1140px;
+    height: 36px;
+    padding: 0;
+    margin: 50px auto 80px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    background-color: rgba(47, 47, 47, 1);
+    display: block;
+}
