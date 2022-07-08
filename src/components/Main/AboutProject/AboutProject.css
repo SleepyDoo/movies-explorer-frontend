@@ -1,0 +1,69 @@
+.aboutProject {
+    background-color: rgba(32, 32, 32, 1);
+    margin-top: 110px;
+    max-width: 1140px;
+    margin: 110px auto 0;
+}
+
+.aboutProject__table {
+    display: flex;
+    margin-top: 70px;
+    justify-content: space-between;
+}
+
+.aboutProject__element-heading {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+}
+
+.aboutProject__element-subheading {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.aboutProject__element {
+    max-width: 550px;
+}
+
+.aboutProject__line-container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: 110px 0 110px 0;
+}
+
+.aboutProject__backend-line {
+    background-color: rgba(61, 220, 132, 1);
+    height: 36px;
+    display: flex;
+}
+
+.aboutProject__frontend-line {
+    background-color: rgba(48, 48, 48, 1);
+    height: 36px;
+    display: flex;
+}
+
+.aboutProject__duration {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    padding: 0;
+    margin: auto;
+}
+
+.aboutProject__duration_type_front {
+    color: white;
+}
+
+.aboutProject__label {
+    color: rgba(139, 139, 139, 1);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin: 14px 0 0 0;
+}
