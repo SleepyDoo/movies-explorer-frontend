@@ -1,5 +1,6 @@
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 import "./SearchForm.css"
+import React from 'react';
 const SearchForm = () => {
     return (
         <div className="search-form">

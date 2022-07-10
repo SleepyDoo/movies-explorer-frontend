@@ -1,8 +1,9 @@
 import "./AboutProject.css"
+import React from 'react';
 
 const AboutProject = () => {
     return (
-        <div className="aboutProject">
+        <div className="aboutProject" id="about-project">
             <div className="main__heading-container">
                 <h2 className="main__subheading">О проекте</h2>
             </div>

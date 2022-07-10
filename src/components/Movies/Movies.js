@@ -1,6 +1,7 @@
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 import MoreButton from "./MoreButton/MoreButton";
+import React from 'react';
 
 const Movies = () => {
     return (

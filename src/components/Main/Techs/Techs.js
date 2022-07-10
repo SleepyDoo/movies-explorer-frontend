@@ -1,4 +1,5 @@
 import "./Techs.css"
+import React from 'react';
 
 const Techs = () => {
     return (

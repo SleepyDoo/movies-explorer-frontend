@@ -1,4 +1,5 @@
 import "./Promo.css"
+import React from 'react';
 
 const Promo = () => {
     return (
@@ -10,7 +11,8 @@ const Promo = () => {
                 </div>
                 <div className="promo__logo"></div>
             </div>
-            <button className="promo__button">Узнать больше</button>
+            <button className="promo__button">Узнать больше</button> 
+            {/* В планах наладить работу кнопки на js */}
         </div>
         
     )

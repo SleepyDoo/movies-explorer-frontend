@@ -1,14 +1,13 @@
 .promo {
-    width: 100%;
+    max-width: 100%;
     background-color: #073042;
     padding-bottom: 75px;
+    padding: 75px 70px 75px 70px;
 }
 
 .promo__container {
     display: flex;
     justify-content: space-between;
-    margin: 0 70px 0 70px;
-    padding-top: 75px;
 }
 
 .promo__heading {
@@ -44,5 +43,8 @@
     background-color: #073042;
     border: 1px solid rgba(255, 255, 255, .6);
     border-radius: 3px;
-    margin: 0 0 0 70px;
+    margin: 146px 0 0 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
 }

@@ -1,15 +1,27 @@
-import './Header.css';
-import React from 'react';
-// import { Link } from 'react-router-dom';
+import "./Header.css";
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
     return (
-        <header className="header">
-            <div className="header__logo"></div>
-            {/* <nav className='header__nav'>
-                <Link className='header__link-signup'>Регистрация</Link>
-                <Link className='header__link-signin'>Вход</Link>
-            </nav> */}
+        <header className="header header_dark">
+            <Link to="/" className="header__logo" />
+            <div className="header__container_dark">
+                <NavLink to="/Movies" className="header__link_dark" activeClassName="header__link_active">Фильмы</NavLink>
+                <NavLink to="/Movies" className="header__link_dark" activeClassName="header__link_active">Сохранённые фильмы</NavLink>
+            </div>
+            <div className="header__container_acc">
+                <Link to="/profile" className="header__link_acc">Аккаунт</Link>
+                <div className="header__acc-sym" />
+            </div>
+
+            {/* <div className='header__container'>
+                <Link className='header__link' to="/signup">Регистрация</Link>
+                <div className='header__signin-container'>
+                    <Link className='header__link header__link_route_signin' to="/signin">Вход</Link>
+                </div>
+            </div> */}
+
         </header>
     )
 }

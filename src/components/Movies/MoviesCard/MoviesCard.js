@@ -1,5 +1,6 @@
 import photo from "../../../images/movie1.svg"
 import "./MoviesCard.css"
+import React from 'react';
 
 const MoviesCard = () => {
     return (

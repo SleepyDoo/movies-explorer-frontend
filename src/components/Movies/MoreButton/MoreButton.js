@@ -1,4 +1,5 @@
 import "./MoreButton.css"
+import React from 'react';
 
 const MoreButton = () => {
     return (
