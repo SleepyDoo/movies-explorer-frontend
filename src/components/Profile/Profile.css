@@ -27,10 +27,10 @@
 
 .profile__container:last-of-type {
     border: none;
-    padding-top: 16px;
+    padding-top: 17px;
 }
 
-.profile__container-heading {
+.profile__label {
     font-weight: 500;
     font-size: 11px;
     line-height: 13px;
@@ -38,19 +38,34 @@
     margin: 0;
 }
 
-.profile__text {
+.profile__input {
     font-weight: 400;
     font-size: 11px;
     line-height: 13px;
     text-align: right;
     margin: 0;
+    border: none;
+    background-color: rgba(32, 32, 32, 1);
+    color: white;
+    width: 350px;
+    padding: 0;
+    height: max-content;
+}
+
+.profile__input:focus {
+    outline: none;
 }
 
 .profile__edit {
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
-    margin: 205px 0 16px 0;
+    display: block;
+    margin: 205px auto 16px auto;
+    border: none;
+    padding: 0;
+    background-color: rgba(32, 32, 32, 1);
+    color: white;
     transition: opacity .2s ease-in-out;
     opacity: 1;
 }

@@ -90,6 +90,6 @@
     opacity: 1;
 }
 
-.auth__link {
+.auth__link:hover {
     opacity: .5;
 }
