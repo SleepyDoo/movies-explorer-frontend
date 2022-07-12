@@ -26,6 +26,10 @@
     line-height: 17px;
 }
 
+.search-form__input:focus {
+    outline: none;
+}
+
 .search-form__button {
     width: 80px;
     height: 34px;

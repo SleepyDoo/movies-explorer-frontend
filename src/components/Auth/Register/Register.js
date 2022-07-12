@@ -16,19 +16,22 @@ const Register = () => {
                         className="auth__input"
                         type="string"
                         name="name"
-                        required />
+                        required
+                        autoComplete="off"/>
                     <p className="auth__input-label">E-mail</p>
                     <input
                         className="auth__input"
                         type="email"
                         name="email"
-                        required />
+                        required
+                        autoComplete="off"/>
                     <p className="auth__input-label">Пароль</p>
                     <input
                         className="auth__input auth__input_type_error"
                         type="password"
                         name="password"
-                        required />
+                        required
+                        autoComplete="off"/>
                     <p className="auth__error">Что-то пошло не так...</p>
                 </fieldset>
                 <button type="submit" className="auth__button">Зарегистрироваться</button>

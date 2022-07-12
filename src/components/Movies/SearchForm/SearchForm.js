@@ -6,7 +6,11 @@ const SearchForm = () => {
         <div className="search-form">
                 <form className="search-form__form">
                     <div className="search-form__container">
-                        <input type="text" name="name" placeholder="Фильм" className="search-form__input" />
+                        <input type="text"
+                            name="name"
+                            placeholder="Фильм"
+                            className="search-form__input"
+                            autoComplete="off" />
                         <button type="submit" className="search-form__button" aria-label="Поиск">
                             <div className="search-form__icon" />
                         </button>

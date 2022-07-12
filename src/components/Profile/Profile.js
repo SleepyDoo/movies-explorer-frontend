@@ -20,8 +20,8 @@ const Profile = () => {
                             name="name"
                             maxLength="30"
                             minLength="2"
-                            value="Qwerty">
-                        </input>
+                            value="Qwerty"
+                            autoComplete="off" />
                     </div>
                     <div className="profile__container">
                         <label className="profile__label">E-mail</label>
@@ -29,8 +29,8 @@ const Profile = () => {
                             type="emaio"
                             required
                             name="email"
-                            value="Qwerty@qwerty.q">
-                        </input>
+                            value="Qwerty@qwerty.q"
+                            autoComplete="off" />
                     </div>
                     <button className="profile__edit">Редактировать</button>
                 </form>

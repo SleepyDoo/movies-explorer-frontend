@@ -30,6 +30,10 @@
     margin: 0 0 24px 0;
 }
 
+.auth__input:focus {
+    outline: none;
+}
+
 .auth__input_type_error {
     color: rgba(238, 52, 101, 1);
     margin-bottom: 6px;

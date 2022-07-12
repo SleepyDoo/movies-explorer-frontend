@@ -16,13 +16,15 @@ const Login = () => {
                         className="auth__input"
                         type="email"
                         name="email"
-                        required />
+                        required
+                        autoComplete="off"/>
                     <p className="auth__input-label">Пароль</p>
                     <input
                         className="auth__input"
                         type="password"
                         name="password"
-                        required />
+                        required
+                        autoComplete="off"/>
                 </fieldset>
                 <button type="submit" className="auth__button">Войти</button>
             </form>
