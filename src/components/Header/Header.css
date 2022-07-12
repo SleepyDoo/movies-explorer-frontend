@@ -17,6 +17,12 @@
     height: 38px;
     background-image: url('../../images/header_sym.svg');
     align-self: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.header__logo:hover {
+    opacity: .5;
 }
 
 .header_dark {

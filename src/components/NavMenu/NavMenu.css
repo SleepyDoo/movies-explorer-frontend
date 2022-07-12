@@ -46,6 +46,12 @@
     color: white;
     text-decoration: none;
     margin: 28px 0 0;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.nav-menu__link:hover {
+    opacity: .5;
 }
 
 .nav-menu__link:first-of-type {
@@ -66,4 +72,10 @@
     right: 22px;
     z-index: 2;
     background-position: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.nav-menu__close-button:hover {
+    opacity: .5;
 }

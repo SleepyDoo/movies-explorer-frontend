@@ -2,6 +2,12 @@
     display: flex;
     width: 94px;
     align-items: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.profile-button__button:hover {
+    opacity: .5;
 }
 
 .profile-button__name {

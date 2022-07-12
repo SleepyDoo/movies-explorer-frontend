@@ -18,11 +18,17 @@
     display: flex;
     justify-content: space-between;
     text-decoration: none;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
 }
 
 .portfolio__link-container:last-of-type {
     margin: 0;
     border-bottom: none;
+}
+
+.portfolio__link-container:hover {
+    opacity: .5;
 }
 
 .portfolio__link-name {

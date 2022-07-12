@@ -6,4 +6,10 @@
     width: 44px;
     background-image: url("../../../images/menu-button.svg");
     align-self: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.menu-button:hover {
+    opacity: .5;
 }

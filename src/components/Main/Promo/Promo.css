@@ -36,7 +36,8 @@
     background-image: url("../../../images/promo__logo.svg");
 }
 
-.promo__button {
+.promo__link-container {
+    display: block;
     width: 129px;
     height: 36px;
     color: white;
@@ -44,6 +45,19 @@
     border: 1px solid rgba(255, 255, 255, .6);
     border-radius: 3px;
     margin: 146px 0 0 0;
+    text-decoration: none;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.promo__link-container:hover {
+    opacity: .5;
+}
+
+.promo__link {
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;

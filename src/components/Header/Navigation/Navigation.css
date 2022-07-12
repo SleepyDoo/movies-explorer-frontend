@@ -21,6 +21,12 @@
     color: white;
     text-decoration: none;
     align-self: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.navigation__link:hover {
+    opacity: .5;
 }
 
 .navigation__link_dark {

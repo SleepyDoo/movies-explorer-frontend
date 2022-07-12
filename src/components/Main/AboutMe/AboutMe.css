@@ -52,6 +52,12 @@
     margin: 0;
     padding: 0;
     grid-row: 4;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.about-me__link:hover {
+    opacity: .5;
 }
 
 .about-me__link:first-of-type {
@@ -61,4 +67,8 @@
 .about-me__container {
     display: grid;
     margin-top: 66px;
+}
+
+.promo__link-container:hover {
+    opacity: .5;
 }

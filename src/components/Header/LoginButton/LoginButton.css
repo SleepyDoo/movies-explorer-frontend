@@ -9,6 +9,12 @@
     margin-left: 30px;
     text-decoration: none;
     align-self: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.login-button__button {
+    opacity: .5;
 }
 
 .login-button__link {

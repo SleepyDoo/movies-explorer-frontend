@@ -39,4 +39,11 @@
     font-size: 13px;
     line-height: 16px;
     margin: 0 29px 0 0;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+
+}
+
+.footer_link:hover {
+    opacity: .5;
 }

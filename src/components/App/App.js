@@ -14,7 +14,7 @@ import NavMenu from "../NavMenu/NavMenu";
 function App() {
   return (
     <div className="app">
-      <NavMenu />
+      {/* <NavMenu /> */}
       <Routes>
         <Route exact path="/" element={<Main />} />
 
