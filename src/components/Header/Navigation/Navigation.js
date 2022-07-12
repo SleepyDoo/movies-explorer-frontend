@@ -5,13 +5,16 @@ import "./Navigation.css";
 const Navigation = () => {
     return (
         <div className="navigation">
-            <div className="navigation__container navigation__container_dark">
+            {/* ______logged in:______ */}
+            {/* <div className="navigation__container navigation__container_dark">
                 <Link to="/Movies" className="navigation__link_dark" >Фильмы</Link>
                 <Link to="/Movies" className="navigation__link_dark header__link_active">Сохранённые фильмы</Link>
-            </div>
-            {/* <div className='navigation__container'>
-                <Link className='navigation__link' to="/signup">Регистрация</Link>
             </div> */}
+
+            {/* ______Not logged in:______ */}
+            <div className='navigation__container'>
+                <Link className='navigation__link' to="/signup">Регистрация</Link>
+            </div>
         </div>
 
     )

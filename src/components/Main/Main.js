@@ -11,7 +11,7 @@ import Footer from "../Footer/Footer";
 
 const Main = () => {
     return (
-        <div>
+        <div className="main">
             <Header />
             <Promo />
             <AboutProject />
