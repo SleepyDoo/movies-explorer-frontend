@@ -6,7 +6,7 @@ import AuthHeader from "../AuthHeader/AuthHeader";
 
 const Register = () => {
     return (
-        <div className="register">
+        <section className="register">
             <AuthHeader />
             <p className="auth__greeting">Добро пожаловать!</p>
             <form className="auth__form">
@@ -37,7 +37,7 @@ const Register = () => {
                 <p className="auth__question">Уже зарегистрированы?</p>
                 <Link className="auth__link" to="/signin">Войти</Link>
             </div>
-        </div>
+        </section>
     )
 }
 

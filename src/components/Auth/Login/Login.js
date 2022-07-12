@@ -2,10 +2,11 @@ import "./Login.css"
 import "../Auth.css"
 import AuthHeader from "../AuthHeader/AuthHeader";
 import React from 'react';
+import { Link } from "react-router-dom"; 
 
 const Login = () => {
     return (
-        <div className="login">
+        <section className="login">
             <AuthHeader />
             <p className="auth__greeting">Рады видеть!</p>
             <form className="auth__form">
@@ -27,9 +28,9 @@ const Login = () => {
             </form>
             <div className="auth__container">
                 <p className="auth__question">Ещё не зарегистрированы?</p>
-                <a className="auth__link" href="http://123.ru">Регистрация</a>
+                <Link className="auth__link" to="/signup">Регистрация</Link>
             </div>
-        </div>
+        </section>
     )
 }
 

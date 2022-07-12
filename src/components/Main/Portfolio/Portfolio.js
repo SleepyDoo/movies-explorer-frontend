@@ -3,7 +3,7 @@ import React from 'react';
 
 const Portfolio = () => {
     return (
-        <div className="portfolio">
+        <section className="portfolio">
             <h2 className="portfolio__heading">Портфолио</h2>
             <div className="portfolio__container">
                 <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories">
@@ -19,7 +19,7 @@ const Portfolio = () => {
                     <div className="portfolio__arrow"></div>
                 </a>
             </div>
-        </div>
+        </section>
     )
 }
 

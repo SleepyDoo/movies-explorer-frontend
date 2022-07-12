@@ -1,15 +1,19 @@
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 import MoreButton from "./MoreButton/MoreButton";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import React from 'react';
 
 const Movies = () => {
     return (
-        <div className="movies">
+        <section className="movies">
+            <Header />
             <SearchForm />
             <MoviesCardList />
             <MoreButton />
-        </div>
+            <Footer />
+        </section >
     )
 }
 

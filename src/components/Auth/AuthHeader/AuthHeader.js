@@ -3,9 +3,9 @@ import React from 'react';
 
 const AuthHeader = () => {
     return (
-        <div className="auth-header">
+        <header className="auth-header">
             <div className="auth-header__logo" />
-        </div>
+        </header>
     )
 }
 

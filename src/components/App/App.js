@@ -1,50 +1,32 @@
 import "./App.css";
 import "../../vendor/normalize.css"
 import React from 'react';
-import Header from "../Header/Header";
 import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
 import Profile from "../Profile/Profile";
 import Login from "../Auth/Login/Login";
 import Register from "../Auth/Register/Register";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import NotFound from "../NotFound/NotFound";
 
 function App() {
   return (
     <div className="app">
+      <Routes>
+        <Route exact path="/" element={<Main />} />
+
+        <Route path="/movies" element={<Movies />} />
       
-      <Switch>
-        <Route exact path="/">
-          <Header />
-          <Main />
-          <Footer />
-        </Route>
+        <Route path="/saved-movies" element={<Movies />} />
 
-        <Route path="/movies">
-          <Header />
-          <Movies />
-          <Footer />
-        </Route>
-      
-        <Route path="/saved-movies">
-          <Header />
-          <Movies />
-          <Footer />
-        </Route>
+        <Route path="/profile" element={<Profile />} />
 
-        <Route path="/profile">
-          <Profile />
-        </Route>
+        <Route path="/signin" element={<Login />} />
+          
+        <Route path="/signup" element={<Register />} />
 
-        <Route path="/signin">
-          <Login />
-        </Route>
-
-        <Route path="/signup">
-          <Register />
-        </Route>
-      </Switch>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }

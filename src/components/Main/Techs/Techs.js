@@ -3,7 +3,7 @@ import React from 'react';
 
 const Techs = () => {
     return (
-        <div className="techs">
+        <section className="techs">
             <div className="main__heading-container">
                 <h2 className="main__subheading">Технологии</h2>
             </div>
@@ -32,7 +32,7 @@ const Techs = () => {
                     <p className="techs__card-name">MongoDB</p>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

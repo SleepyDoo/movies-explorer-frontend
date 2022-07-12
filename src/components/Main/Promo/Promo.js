@@ -3,7 +3,7 @@ import React from 'react';
 
 const Promo = () => {
     return (
-        <div className="promo">
+        <section className="promo">
             <div className="promo__container">
                 <div>
                     <h1 className="promo__heading">Учебный проект студента факультета <br /> Веб-разработки.</h1>
@@ -13,7 +13,7 @@ const Promo = () => {
             </div>
             <button className="promo__button">Узнать больше</button> 
             {/* В планах наладить работу кнопки на js */}
-        </div>
+        </section>
         
     )
 }
