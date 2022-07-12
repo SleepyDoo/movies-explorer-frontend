@@ -1,10 +1,14 @@
 import "./Profile.css"
 import React from 'react';
 import { Link } from "react-router-dom";
+import Header from "../Header/Header"
 
 const Profile = () => {
     return (
-        <div className="profile">
+        <div>
+            <Header />
+            <div className="profile">
+            
             <h2 className="profile__heading">Привет, Виталий!</h2>
             <div className="profile__container">
                 <p className="profile__container-heading">Имя</p>
@@ -18,6 +22,8 @@ const Profile = () => {
             <Link className="profile__logout" to="/signin">Выйти из аккаунта</Link>
 
         </div>
+        </div>
+
     )
 }
 

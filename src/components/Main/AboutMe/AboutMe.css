@@ -1,10 +1,10 @@
-.aboutt-m {
+.about-me {
     padding: 110px 0 100px 0;
     max-width: 1140px;
     margin: 0 auto;
 }
 
-.aboutt-m__name {
+.about-me__name {
     font-size: 50px;
     line-height: 58px;
     letter-spacing: -0.04em;
@@ -14,7 +14,7 @@
     grid-row: 1;
 }
 
-.aboutt-m__post {
+.about-me__post {
     font-weight: 500;
     font-size: 18px;
     line-height: 20px;
@@ -24,7 +24,7 @@
     grid-row: 2;
 }
 
-.aboutt-m__paragraph {
+.about-me__paragraph {
     font-size: 14px;
     line-height: 22px;
     max-width: 600px;

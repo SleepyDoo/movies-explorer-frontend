@@ -1,25 +1,29 @@
 import "./Header.css";
 import React from "react";
 import { Link } from "react-router-dom";
+// import Navigation from "./Navigation/Navigation";
+//import ProfileButton from "./ProfileButton/ProfileButton";
+// import LoginButton from "./LoginButton/LoginButton";
+import MenuButton from "./MenuButton/MenuButton";
 
 const Header = () => {
     return (
         <header className="header header_dark">
             <Link to="/" className="header__logo" />
-            <div className="header__container_dark">
-                <Link to="/Movies" className="header__link_dark" >Фильмы</Link>
-                <Link to="/Movies" className="header__link_dark header__link_active">Сохранённые фильмы</Link>
-            </div>
-            <div className="header__container_acc">
-                <Link to="/profile" className="header__link_acc">Аккаунт</Link>
-                <div className="header__acc-sym" />
-            </div>
 
-            {/* <div className='header__container'>
-                <Link className='header__link' to="/signup">Регистрация</Link>
-                <div className='header__signin-container'>
-                    <Link className='header__link header__link_route_signin' to="/signin">Вход</Link>
-                </div>
+            {/* _______Logged in on mobile:_______ */}
+            <MenuButton />
+            
+
+            {/* _______Loggeg in on desktop:_______ */}
+            {/* <Navigation />
+            <ProfileButton /> */}
+
+
+            {/* _______Not logged in:_______  */}
+            {/* <div className="header__nav-container">
+                <Navigation />
+                <LoginButton />
             </div> */}
 
         </header>

@@ -22,7 +22,7 @@ const AboutProject = () => {
                     <p className="about-project__duration">1 неделя</p>
                 </div>
                 <div className="about-project__frontend-line">
-                <p className="about-project__duration aboutProject__duration_type_front">4 недели</p>
+                <p className="about-project__duration about-project__duration_type_front">4 недели</p>
                 </div>
                 <p className="about-project__label">Back-end</p>
                 <p className="about-project__label">Front-end</p>
