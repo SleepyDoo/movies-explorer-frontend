@@ -26,8 +26,8 @@
     line-height: 16px;
     margin: 0;
     padding: 0;
-    opacity: 50%;
     max-width: 310px;
+    color: rgba(69, 99, 113, 1);
 }
 
 .promo__logo {

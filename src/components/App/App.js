@@ -9,9 +9,12 @@ import Register from "../Auth/Register/Register";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 
+import NavMenu from "../NavMenu/NavMenu";
+
 function App() {
   return (
     <div className="app">
+      <NavMenu />
       <Routes>
         <Route exact path="/" element={<Main />} />
 
