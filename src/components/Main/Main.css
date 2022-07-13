@@ -9,3 +9,14 @@
     line-height: 27px;
     letter-spacing: -0.04em;
 }
+
+@media screen and (max-width: 320px) {
+    .main__heading-container {
+        margin: 28px auto 0;
+    }
+
+    .main__subheading {
+        font-size: 18px;
+        line-height: 22px;
+    }
+}

@@ -95,10 +95,11 @@
 
     .promo__link-container {
         margin-top: 80px;
+        margin: 92px auto 0;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 420px) {
 
     .promo__logo {
         height: 206px;
@@ -106,6 +107,9 @@
         margin: 0 auto 48px;
         background-size: contain;
     }
+}
+
+@media screen and (max-width: 320px) {
 
     .promo__heading {
         margin: 0 0 24px;
@@ -120,10 +124,10 @@
     }
 
     .promo {
-        padding: 70px 0 30px;
+        padding: 70px 10px 30px;
     }
 
     .promo__link-container {
-        margin: 92px auto 0;
+        margin-top: 80px;
     }
 }
