@@ -1,6 +1,6 @@
 .main__heading-container {
     border-bottom: 1px solid rgba(255, 255, 255, .6);
-    margin: 23px auto 0;
+    margin: 0 auto;
 }
 
 .main__subheading {
@@ -11,9 +11,6 @@
 }
 
 @media screen and (max-width: 320px) {
-    .main__heading-container {
-        margin: 28px auto 0;
-    }
 
     .main__subheading {
         font-size: 18px;
