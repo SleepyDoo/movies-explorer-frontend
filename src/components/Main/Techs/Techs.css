@@ -78,7 +78,7 @@
 @media screen and (max-width: 320px) {
 
     .techs {
-        padding: 70px 71px 70px 71px;
+        padding: 70px 14px 70px 14px;
     }
 
     .techs__subheading {
@@ -94,7 +94,7 @@
 
     .techs__container {
         margin-top: 50px;
-        margin: 50px 0 0;
+        margin: 50px auto 0;
         flex-direction: column;
         flex-wrap: wrap;
         max-height: 258px;

@@ -21,10 +21,10 @@ const Header = () => {
 
 
             {/* _______Not logged in:_______  */}
-            <div className="header__nav-container">
+            {/* <div className="header__nav-container">
                 <Navigation />
                 <LoginButton />
-            </div>
+            </div> */}
 
         </header>
     )

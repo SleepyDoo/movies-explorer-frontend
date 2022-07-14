@@ -2,7 +2,7 @@
     color: white;
     background-color: rgba(7, 48, 66, 1);
     height: 74px;
-    max-width: 100%;
+    /* max-width: 100%; */
     display: flex;
     justify-content: space-between;
     padding: 0 70px;

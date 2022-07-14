@@ -54,3 +54,43 @@
     margin: 16px;
     display: grid;
 }
+
+@media screen and (max-width: 892px) {
+
+    .movies-card {
+        width: 339px;
+        height: 262px;
+    }
+
+    .movies-card__container {
+        width: 317px;
+        margin: 0;
+        padding: 14px;
+    }
+
+    .movies-card__film-name {
+        margin: 0 0 15px;
+    }
+
+    .movies-card__img {
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+    }
+
+}
+
+@media screen and (max-width: 360px) {
+    .movies-card {
+        width: 300px;
+        height: 237px;
+    }
+
+    .movies-card__container {
+        width: 276px;
+        margin: 0;
+        padding: 14px;
+        padding-top: 10px;
+    }
+
+}

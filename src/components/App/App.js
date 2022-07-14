@@ -10,11 +10,14 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 
 import NavMenu from "../NavMenu/NavMenu";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 function App() {
   return (
     <div className="app">
       {/* <NavMenu /> */}
+      <Header />
       <Routes>
         <Route exact path="/" element={<Main />} />
 
@@ -30,6 +33,7 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

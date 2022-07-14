@@ -59,6 +59,19 @@
 
 }
 
+@media screen and (max-width: 490px) {
+
+    .portfolio {
+        padding: 0 14px 90px;
+    }
+
+    .portfolio__arrow {
+        width: 19px;
+        height: 18px;
+    }
+
+}
+
 @media screen and (max-width: 320px) {
 
     .portfolio {
@@ -75,9 +88,6 @@
         margin-bottom: 40px;
     }
 
-    .portfolio__arrow {
-        width: 19px;
-        height: 18px;
-    }
+
 
 }

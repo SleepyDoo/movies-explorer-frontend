@@ -16,7 +16,7 @@ const Portfolio = () => {
                 </a>
                 <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories">
                     <p className="portfolio__link-name">Одностраничное приложение</p>
-                    <div className="portfolio__arrow"></div>
+                    <div className="portfolio__arrow" />
                 </a>
             </div>
         </section>

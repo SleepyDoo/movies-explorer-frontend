@@ -6,11 +6,14 @@ import React from 'react';
 const MoviesCardList = () => {
     return (
         <div className="movies-card-list">
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
+            <div className="movies-card-list__container">
+                <MoviesCard />
+                <MoviesCard />
+                <MoviesCard />
+                <MoviesCard />
+                <MoviesCard />
+            </div>
+
             {/* <div className="movies-card-list__preloader">
                 <Preloader />
             </div> */}
