@@ -7,3 +7,9 @@
     height: 38px;
     background-image: url("../../../images/header_sym.svg");
 }
+
+@media screen and (max-width: 430px) {
+    .auth-header__logo {
+        margin: 0 auto;
+    }
+}

@@ -47,7 +47,7 @@
     border: none;
     background-color: rgba(32, 32, 32, 1);
     color: white;
-    width: 350px;
+    max-width: 80%;
     padding: 0;
     height: max-content;
 }
@@ -88,4 +88,24 @@
 
 .profile__logout:hover {
     opacity: .5;
+}
+
+@media screen and (max-width: 445px) {
+    .profile__container {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .profile__container {
+        width: 260px;
+    }
+
+    .profile__edit {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        margin-top: 379px;
+    }
+
 }

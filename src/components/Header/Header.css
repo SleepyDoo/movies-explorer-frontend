@@ -33,3 +33,19 @@
 .header__nav-container {
     display: flex;
 }
+
+@media screen and (max-width: 768px) {
+
+    .header {
+        padding: 0 30px;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+
+    .header {
+        padding: 0 14px;
+    }
+
+}

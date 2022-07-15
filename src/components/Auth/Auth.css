@@ -26,7 +26,8 @@
     border-bottom: solid 1px rgba(66, 66, 66, 1);
     background-color: rgba(32, 32, 32, 1);
     width: 396px;
-    max-width: 396px;
+    font-size: 14px;
+    line-height: 17px;
     margin: 0 0 24px 0;
 }
 
@@ -55,6 +56,8 @@
     border: none;
     border-radius: 3px;
     color: white;
+    font-size: 14px;
+    line-height: 17px;
     transition: opacity .2s ease-in-out;
     opacity: 1;
 }
@@ -96,4 +99,41 @@
 
 .auth__link:hover {
     opacity: .5;
+}
+
+@media screen and (max-width: 430px) {
+
+    .auth__input {
+        height: 27px;
+        width: 260px;
+        font-size: 14px;
+        line-height: 17px;
+        margin: 0 0 24px 0;
+    }
+
+    .auth__button {
+        max-width: 260px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .auth__question {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .auth__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .auth__greeting {
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .auth__input_type_error {
+        margin-bottom: 6px;
+    }
+
 }
