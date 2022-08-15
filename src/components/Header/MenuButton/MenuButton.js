@@ -3,9 +3,7 @@ import React from "react";
 
 const MenuButton = () => {
     return (
-        <button className="menu-button">
-
-        </button>
+        <button className="menu-button" />
     )
 }
 

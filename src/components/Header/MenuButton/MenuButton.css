@@ -14,3 +14,7 @@
 .menu-button:hover {
     opacity: .5;
 }
+
+.menu-button_blue {
+    background-color: rgba(7, 48, 66, 1);
+}
