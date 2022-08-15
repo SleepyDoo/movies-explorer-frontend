@@ -37,7 +37,7 @@ const Header = () => {
 
     return (
         // <header className={`${headerBlue ? 'header' : ''} ${headerDark ? 'header header_dark' : 'header__invisible'} `}>
-            <header className="header header_dark">
+            <header className="header"> 
             <Link to="/" className="header__logo" />
 
             <Navigation isMobile={isMobile} />

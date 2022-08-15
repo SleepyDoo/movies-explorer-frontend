@@ -6,7 +6,7 @@ const Promo = () => {
         <section className="promo">
             <div className="promo__container">
                 <div className="promo__logo" />
-                <div>
+                <div className="promo__sub-container">
                     <h1 className="promo__heading">Учебный проект студента факультета <br /> Веб-разработки.</h1>
                     <h4 className="promo__subheading">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</h4>
                 </div>
