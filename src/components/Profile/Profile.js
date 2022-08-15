@@ -19,6 +19,7 @@ const Profile = () => {
                             maxLength="30"
                             minLength="2"
                             value="Qwerty"
+                            readOnly
                             autoComplete="off" />
                     </div>
                     <div className="profile__container">
@@ -28,6 +29,7 @@ const Profile = () => {
                             required
                             name="email"
                             value="Qwerty@qwerty.q"
+                            readOnly
                             autoComplete="off" />
                     </div>
                     <button className="profile__edit">Редактировать</button>

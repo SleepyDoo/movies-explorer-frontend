@@ -3,17 +3,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "./Navigation/Navigation";
-import ProfileButton from "./ProfileButton/ProfileButton";
-import LoginButton from "./LoginButton/LoginButton";
-import MenuButton from "./MenuButton/MenuButton";
+//import ProfileButton from "./ProfileButton/ProfileButton";
+// import LoginButton from "./LoginButton/LoginButton";
+//import MenuButton from "./MenuButton/MenuButton";
 
 
 
 
 // eslint-disable-next-line
-const currentPage = location.href.replace('http://localhost:3000', '');
+const currentPage = location.href.replace('http://localhost:3000', '').toLowerCase();
 
-const isLoggedin = true;
+// const isLoggedin = false;
 
 console.log(currentPage);
 
@@ -31,37 +31,16 @@ const Header = () => {
         return () => window.removeEventListener('resize', updateWidth);
     });
 
+    // const headerBlue = (currentPage === "/");
+    // const headerDark = (currentPage === '/movies' || currentPage === '/saved-movies' || currentPage === '/profile');
+    // const headerInv = (headerBlue || headerDark);
+
     return (
-        <header className={`${(currentPage === "/") ? 'header' : ''} ${(currentPage === '/movies' || currentPage === '/saved-movies' || currentPage === '/profile') ? 'header header_dark' : 'header__invisible'} `}>
+        // <header className={`${headerBlue ? 'header' : ''} ${headerDark ? 'header header_dark' : 'header__invisible'} `}>
+            <header className="header header_dark">
             <Link to="/" className="header__logo" />
 
-            {(isMobile && isLoggedin) ? <MenuButton /> : null}
-
-            {/* {!isMobile && !isLoggedin ? <div className="header__nav-container">
-                <Navigation />
-                <LoginButton />
-            </div> : null} */}
-
-            {(!isLoggedin && isMobile )? <Navigation /> : null}
-
-            {isLoggedin && !isMobile ? <ProfileButton /> : null}
-
-            
-
-            {/* _______Logged in on mobile:_______ */}
-            
-            
-
-            {/* _______Loggeg in on desktop:_______ */}
-            {/* <Navigation />
-            <ProfileButton /> */}
-
-
-            {/* _______Not logged in:_______  */}
-            {/* <div className="header__nav-container">
-                <Navigation />
-                <LoginButton />
-            </div> */}
+            <Navigation isMobile={isMobile} />
 
         </header>
     )

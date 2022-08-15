@@ -1,51 +1,5 @@
 .navigation {
     display: flex;
     justify-content: space-between;
-    margin-left: 56px;
-}
-
-.navigation__container {
-    display: flex;
-    height: max-content;
-    align-self: center;
-    justify-self: end;
-}
-
-.navigation__link {
-    display: block;
-    height: max-content;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    margin: 0;
-    color: white;
-    text-decoration: none;
-    align-self: center;
-    transition: opacity .2s ease-in-out;
-    opacity: 1;
-}
-
-.navigation__link:hover {
-    opacity: .5;
-}
-
-.navigation__link_dark {
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
-    color: white;
-    text-decoration: none;
-    justify-self: center;
-}
-
-.navigation__link_dark:last-of-type {
-    margin-left: 16px;
-}
-
-.navigation__container_dark {
-    justify-self: center;
-}
-
-.navigation__link_active {
-    font-weight: 500;
+    flex: 1;
 }

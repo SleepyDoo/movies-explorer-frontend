@@ -9,7 +9,7 @@ import Register from "../Auth/Register/Register";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 
-import NavMenu from "../NavMenu/NavMenu";
+//import NavMenu from "../NavMenu/NavMenu";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 

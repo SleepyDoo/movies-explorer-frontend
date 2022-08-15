@@ -1,0 +1,24 @@
+.auth-menu {
+    display: flex;
+    height: max-content;
+    align-self: center;
+    margin-left: auto;
+}
+
+.auth-menu__link {
+    display: block;
+    height: max-content;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 0;
+    color: white;
+    text-decoration: none;
+    align-self: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+}
+
+.auth-menu__link:hover {
+    opacity: .5;
+}
