@@ -15,8 +15,8 @@ const AboutMe = () => {
                     и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур».
                     После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
                 <div className="about-me__links">
-                    <a className="about-me__link" href="https://t.me/sleepydoo">Telegram</a>
-                    <a className="about-me__link" href="https://github.com/SleepyDoo">Github</a>
+                    <a className="about-me__link" href="https://t.me/sleepydoo" target="_blank" rel="noreferrer">Telegram</a>
+                    <a className="about-me__link" href="https://github.com/SleepyDoo" target="_blank" rel="noreferrer">Github</a>
                 </div>
                 <img className="about-me__photo" alt="Виктория" src={myPhoto}></img>
             </div>

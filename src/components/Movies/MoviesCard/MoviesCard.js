@@ -9,7 +9,7 @@ const MoviesCard = () => {
             <div className="movies-card__container">
                 <p className="movies-card__film-name">Qwerty</p>
                 <p className="movies-card__duration">1z 23x</p>
-                <button className="movies-card__like-button" />
+                <button className="movies-card__like-button" type="button"/>
             </div>
         </div>
     )

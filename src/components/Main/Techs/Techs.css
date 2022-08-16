@@ -20,7 +20,9 @@
 }
 
 .techs__container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 90px);
+    row-gap: 10px;
     max-width: 690px;
     height: max-content;
     margin: 100px auto 0;
@@ -79,6 +81,11 @@
 
     .techs {
         padding: 70px 14px 70px 14px;
+        background-color: rgba(32, 32, 32, 1);
+    }
+
+    .techs__heading {
+        border-color: black;
     }
 
     .techs__subheading {
@@ -95,11 +102,11 @@
     .techs__container {
         margin-top: 50px;
         margin: 50px auto 0;
-        flex-direction: column;
-        flex-wrap: wrap;
-        max-height: 258px;
+        grid-template-columns: repeat(2, 84px);
+        max-height: 312px;
         max-width: 178px;
         justify-content: space-between;
+        align-content: space-between;
     }
 
     .techs__card:nth-last-of-type(1) {

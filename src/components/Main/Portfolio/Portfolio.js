@@ -5,20 +5,26 @@ const Portfolio = () => {
     return (
         <section className="portfolio">
             <h2 className="portfolio__heading">Портфолио</h2>
-            <div className="portfolio__container">
-                <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories">
-                    <p className="portfolio__link-name">Статичный сайт</p>
-                    <div className="portfolio__arrow"></div>
-                </a>
-                <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories">
-                    <p className="portfolio__link-name">Адаптивный сайт</p>
-                    <div className="portfolio__arrow"></div>
-                </a>
-                <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories">
-                    <p className="portfolio__link-name">Одностраничное приложение</p>
-                    <div className="portfolio__arrow" />
-                </a>
-            </div>
+            <ul className="portfolio__container">
+                <li>
+                    <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories" target="_blank" rel="noreferrer">
+                        <p className="portfolio__link-name">Статичный сайт</p>
+                        <div className="portfolio__arrow"></div>
+                    </a>
+                </li>
+                <li>
+                    <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories" target="_blank" rel="noreferrer">
+                        <p className="portfolio__link-name">Адаптивный сайт</p>
+                        <div className="portfolio__arrow"></div>
+                    </a>
+                </li>
+                <li>
+                    <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories" target="_blank" rel="noreferrer">
+                        <p className="portfolio__link-name">Одностраничное приложение</p>
+                        <div className="portfolio__arrow" />
+                    </a>
+                </li>
+            </ul>
         </section>
     )
 }

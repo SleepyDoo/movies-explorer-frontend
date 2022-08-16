@@ -43,21 +43,23 @@ function App() {
       {isNavMenuOpened ? <NavMenu onClose={closeMenu} /> : null}
 
       {(headerBlue || headerDark) ? <Header dark={headerDark} isLoggedIn={isLoggedIn} onMenuClick={openMenu} /> : null}
-      <Routes>
-        <Route exact path="/" element={<Main />} />
+      <main>
+        <Routes>
+          <Route exact path="/" element={<Main />} />
 
-        <Route path="/movies" element={<Movies />} />
+          <Route path="/movies" element={<Movies />} />
       
-        <Route path="/saved-movies" element={<Movies />} />
+          <Route path="/saved-movies" element={<Movies />} />
 
-        <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
 
-        <Route path="/signin" element={<Login />} />
+          <Route path="/signin" element={<Login />} />
           
-        <Route path="/signup" element={<Register />} />
+          <Route path="/signup" element={<Register />} />
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );

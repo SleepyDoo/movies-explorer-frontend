@@ -6,7 +6,6 @@ const Profile = () => {
     return (
         <div>
             <div className="profile">
-            
                 <h2 className="profile__heading">Привет, Виталий!</h2>
                 <form className="profile-form">
                     <div className="profile__container">
@@ -32,13 +31,11 @@ const Profile = () => {
                             readOnly
                             autoComplete="off" />
                     </div>
-                    <button className="profile__edit">Редактировать</button>
+                    <button className="profile__edit" type="submit">Редактировать</button>
                 </form>
-            <Link className="profile__logout" to="/signin">Выйти из аккаунта</Link>
-
+                <Link className="profile__logout" to="/signin">Выйти из аккаунта</Link>
+            </div>
         </div>
-        </div>
-
     )
 }
 

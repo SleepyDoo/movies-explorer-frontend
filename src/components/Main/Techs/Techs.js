@@ -4,7 +4,7 @@ import React from 'react';
 const Techs = () => {
     return (
         <section className="techs">
-            <div className="main__heading-container">
+            <div className="main__heading-container techs__heading">
                 <h2 className="main__subheading">Технологии</h2>
             </div>
             <h3 className="techs__subheading">7 технологий</h3>

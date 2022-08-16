@@ -31,6 +31,10 @@
     max-width: 550px;
 }
 
+.about-project__element:first-of-type {
+    margin-right: 20px;
+}
+
 .about-project__line-container {
     display: grid;
     grid-template-columns: 20% 80%;
@@ -75,6 +79,12 @@
     .about-project__element-subheading {
         font-size: 12px;
         line-height: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .about-project {
+        padding: 0 30px;
     }
 }
 

@@ -6,7 +6,7 @@ import ProfileButton from "../Header/ProfileButton/ProfileButton"
 const NavMenu = (props) => {
     return (
         <div className="nav-menu nav-menu_opened">
-            <button className="nav-menu__close-button" onClick={props.onClose}/>
+            <button className="nav-menu__close-button" onClick={props.onClose} type="button" />
             <div className="nav-menu__container">
                 <div className="nav-menu__link-container">
                     <Link to="/" className="nav-menu__link">Главная</Link>

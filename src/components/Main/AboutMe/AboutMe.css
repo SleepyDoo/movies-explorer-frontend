@@ -41,6 +41,7 @@
     grid-row: 1 / 5;
     justify-self: end;
     border-radius: 10px;
+    margin-left: 10px;
 }
 
 .about-me__link {
@@ -76,7 +77,7 @@
 @media screen and (max-width: 768px) {
 
     .about-me {
-        padding: 90px 50px 90px 50px;
+        padding: 90px 50px;
     }
 
     .about-me__name {
@@ -108,14 +109,14 @@
     }
 
     .about-me {
-        padding: 0 14px;
+        padding: 90px 14px;
     }
 }
 
 @media screen and (max-width: 320px) {
 
     .about-me {
-        padding: 70px 14px 70px;
+        padding: 70px 14px;
     }
 
     .about-me__name {
@@ -144,6 +145,7 @@
         height: 352px;
         grid-row: 1;
         margin-bottom: 40px;
+        margin-left: 0;
     }
 
     .about-me__container {
