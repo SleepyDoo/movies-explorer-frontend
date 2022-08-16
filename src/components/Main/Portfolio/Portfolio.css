@@ -28,7 +28,7 @@
     opacity: 1;
 }
 
-.portfolio__link-container:last-of-type {
+.portfolio__link-container_no-border {
     margin: 0;
     border-bottom: none;
 }
@@ -61,6 +61,7 @@
 
     .portfolio__link-name {
         font-size: 28px;
+        max-width: 270px;
     }
 
 }
@@ -75,7 +76,6 @@
         width: 19px;
         height: 18px;
     }
-
 }
 
 @media screen and (max-width: 320px) {
@@ -93,7 +93,4 @@
         font-size: 14px;
         margin-bottom: 40px;
     }
-
-
-
 }

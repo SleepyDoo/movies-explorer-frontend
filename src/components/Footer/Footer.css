@@ -54,6 +54,12 @@
     }
 }
 
+@media screen and (max-width: 385px) {
+    .footer__links {
+        max-width: 200px;
+    }
+}
+
 @media screen and (max-width: 360px) {
     .footer {
         padding-right: 10px;

@@ -93,4 +93,15 @@
         padding-top: 10px;
     }
 
+    .movies-card__film-name {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        margin: 0 0 14px;
+    }
+
+    .movies-card__img {
+        height: 168px;
+    }
+
 }

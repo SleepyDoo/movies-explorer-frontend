@@ -19,7 +19,7 @@ const Portfolio = () => {
                     </a>
                 </li>
                 <li>
-                    <a className="portfolio__link-container" href="https://github.com/SleepyDoo?tab=repositories" target="_blank" rel="noreferrer">
+                    <a className="portfolio__link-container portfolio__link-container_no-border" href="https://github.com/SleepyDoo?tab=repositories" target="_blank" rel="noreferrer">
                         <p className="portfolio__link-name">Одностраничное приложение</p>
                         <div className="portfolio__arrow" />
                     </a>
