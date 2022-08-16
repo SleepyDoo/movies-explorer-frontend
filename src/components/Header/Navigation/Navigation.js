@@ -1,29 +1,20 @@
 import React from "react";
 import "./Navigation.css";
-// import AuthMenu from "../AuthMenu/AuthMenu";
-// import UserMenu from "../UserMenu/UserMenu";
+import AuthMenu from "../AuthMenu/AuthMenu";
+import UserMenu from "../UserMenu/UserMenu";
 import MenuButton from "../MenuButton/MenuButton";
 
-const Navigation = () => {
+const Navigation = (props) => {
+
     return (
         <div className="navigation">
 
-            {/* ______logged in on desktop:______ */}
-            {/* <UserMenu /> */}
-            {/* ___________ */}
-
+            {(props.isLoggedIn && !props.isMobile) ? <UserMenu /> : null}
             
+            {(props.isLoggedIn && props.isMobile) ? <MenuButton dark={props.dark} onMenuClick={props.onMenuClick} /> : null}
 
-            {/* ______logged in on mobile:______ */}
-            <MenuButton />
-            {/* _______________ */}
+            {!props.isLoggedIn ? <AuthMenu /> : null}
 
-            
-
-
-            {/* ______Not logged in:______ */}
-            {/* <AuthMenu /> */}
-            {/* ________________ */}
         </div>
     )
 }

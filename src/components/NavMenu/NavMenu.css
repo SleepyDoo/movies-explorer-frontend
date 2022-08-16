@@ -12,6 +12,7 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-out;
+    z-index: 2;
 }
 
 .nav-menu_opened {
@@ -74,6 +75,9 @@
     background-position: center;
     transition: opacity .2s ease-in-out;
     opacity: 1;
+    background-color: rgba(32, 32, 32, 1);
+    border: none;
+    padding: 0;
 }
 
 .nav-menu__close-button:hover {

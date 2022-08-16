@@ -7,17 +7,7 @@ import Navigation from "./Navigation/Navigation";
 // import LoginButton from "./LoginButton/LoginButton";
 //import MenuButton from "./MenuButton/MenuButton";
 
-
-
-
-// eslint-disable-next-line
-const currentPage = location.href.replace('http://localhost:3000', '').toLowerCase();
-
-// const isLoggedin = false;
-
-console.log(currentPage);
-
-const Header = () => {
+const Header = (props) => {
     const [width, setWidth] = useState(window.innerWidth);
 
     const isMobile = (width <= 768);
@@ -31,16 +21,11 @@ const Header = () => {
         return () => window.removeEventListener('resize', updateWidth);
     });
 
-    // const headerBlue = (currentPage === "/");
-    // const headerDark = (currentPage === '/movies' || currentPage === '/saved-movies' || currentPage === '/profile');
-    // const headerInv = (headerBlue || headerDark);
-
     return (
-        // <header className={`${headerBlue ? 'header' : ''} ${headerDark ? 'header header_dark' : 'header__invisible'} `}>
-            <header className="header"> 
+        <header className={`header ${props.dark ? 'header header_dark' : ''}`}>
             <Link to="/" className="header__logo" />
 
-            <Navigation isMobile={isMobile} />
+            <Navigation isMobile={isMobile} isLoggedIn={props.isLoggedIn} dark={props.dark} onMenuClick={props.onMenuClick} />
 
         </header>
     )

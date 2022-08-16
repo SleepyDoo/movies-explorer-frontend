@@ -29,6 +29,8 @@
     margin: 184px 0 60px 0;
     transition: opacity .2s ease-in-out;
     opacity: 1;
+    background-color: rgba(32, 32, 32, 1);
+    border: none;
 }
 
 .not-found__link:hover {
