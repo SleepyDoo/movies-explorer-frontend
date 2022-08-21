@@ -1,0 +1,133 @@
+.about-project {
+    background-color: rgba(32, 32, 32, 1);
+    margin-top: 110px;
+    max-width: 1280px;
+    padding: 0 70px;
+    margin: 110px auto 0;
+}
+
+.about-project__table {
+    display: flex;
+    margin-top: 70px;
+    justify-content: space-between;
+}
+
+.about-project__element-heading {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0;
+}
+
+.about-project__element-subheading {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+}
+
+.about-project__element {
+    max-width: 550px;
+}
+
+.about-project__element:first-of-type {
+    margin-right: 20px;
+}
+
+.about-project__line-container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: 110px 0 110px 0;
+}
+
+.about-project__backend-line {
+    background-color: rgba(61, 220, 132, 1);
+    height: 36px;
+    display: flex;
+}
+
+.about-project__frontend-line {
+    background-color: rgba(48, 48, 48, 1);
+    height: 36px;
+    display: flex;
+}
+
+.about-project__duration {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    padding: 0;
+    margin: auto;
+}
+
+.about-project__duration_type_front {
+    color: white;
+}
+
+.about-project__label {
+    color: rgba(139, 139, 139, 1);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin: 14px 0 0 0;
+}
+
+@media screen and (max-width: 768px) {
+    .about-project__element-subheading {
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .about-project {
+        padding: 0 30px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .about-project__element-subheading {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .about-project__element-heading {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about-project__duration {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about-project__label {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about-project__table {
+        flex-direction: column;
+        margin-top: 60px;
+    }
+
+    .about-project {
+        margin-top: 70px;
+        padding: 0 18px 70px;
+    }
+
+    .about-project__element {
+        margin-top: 56px;
+    }
+
+    .about-project__element:first-of-type {
+        margin-top: 0;
+    }
+
+    .about-project__line-container {
+        margin: 60px 0 0;
+    }
+}

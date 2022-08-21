@@ -1,0 +1,20 @@
+.menu-button {
+    padding: 0;
+    background-color: rgba(32, 32, 32, 1);
+    border: none;
+    height: 44px;
+    width: 44px;
+    background-image: url("../../../images/menu-button.svg");
+    align-self: center;
+    transition: opacity .2s ease-in-out;
+    opacity: 1;
+    margin-left: auto;
+}
+
+.menu-button:hover {
+    opacity: .5;
+}
+
+.menu-button_blue {
+    background-color: rgba(7, 48, 66, 1);
+}
