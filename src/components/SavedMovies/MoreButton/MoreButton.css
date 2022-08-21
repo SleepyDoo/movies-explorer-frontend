@@ -17,7 +17,4 @@
     opacity: .5;
 }
 
-.more-button__hidden {
-    opacity: 0;
-    visibility: hidden;
-}
+@media screen and (max-width: 768px) {}

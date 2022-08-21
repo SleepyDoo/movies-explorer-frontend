@@ -1,22 +1,16 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css"
 import React from 'react';
-// import Preloader from "../../Preloader/Preloader";
 
-const MoviesCardList = () => {
+const MoviesCardList = (props) => {
+    console.log(props, "props");
     return (
         <div className="movies-card-list">
             <div className="movies-card-list__container">
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
+                {props.movies.map((movie) => {
+                    return <MoviesCard nameRU={movie.nameRU} duration={movie.duration} image={movie.image} key={movie.id} />
+                })}
             </div>
-
-            {/* <div className="movies-card-list__preloader">
-                <Preloader />
-            </div> */}
         </div>
     )
 }
