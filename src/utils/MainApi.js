@@ -1,7 +1,4 @@
-const url = 'url';
-export const headers = {
-    'Content-Type': 'application/json'
-  };
+import { EXPLORER_API } from "./constants";
 
 export function getResult(res) {
     if (!res.ok) {
@@ -10,8 +7,8 @@ export function getResult(res) {
     return res.json();
 }
   
-export function createMovie(data) {
-    return fetch(`${url}/movies`, {
+export function createMovie(data, headers) {
+    return fetch(`${EXPLORER_API}/movies`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify({
@@ -31,32 +28,32 @@ export function createMovie(data) {
         .then(getResult);
 }
 
-export function getMovies() {
-    return fetch(`${url}/movies`, {
+export function getMovies(headers) {
+    return fetch(`${EXPLORER_API}/movies`, {
         method: 'GET',
         headers: headers
     })
         .then(getResult);
 }
 
-export function deleteMovie(id) {
-    return fetch(`${url}/movies/${id}`, {
+export function deleteMovie(id, headers) {
+    return fetch(`${EXPLORER_API}/movies/${id}`, {
         method: 'DELETE ',
         headers: headers
     })
         .then(getResult);
 }
 
-export function getUser() {
-    return fetch(`${url}/users/me`, {
+export function getUser(headers) {
+    return fetch(`${EXPLORER_API}/users/me`, {
         method: 'GET',
         headers: headers
     })
         .then(getResult);
 }
 
-export function updateUser(data) {
-    return fetch(`${url}/users/me`, {
+export function updateUser(data, headers) {
+    return fetch(`${EXPLORER_API}/users/me`, {
         method: 'GET',
         headers: headers,
         body: JSON.stringify({
@@ -67,8 +64,8 @@ export function updateUser(data) {
         .then(getResult);
 }
 
-export function login(data) {
-    return fetch(`${url}/signin`, {
+export function login(data, headers) {
+    return fetch(`${EXPLORER_API}/signin`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify({
@@ -79,8 +76,8 @@ export function login(data) {
         .then(getResult);
 }
 
-export function createUser(data) {
-    return fetch(`${url}/signup`, {
+export function createUser(data, headers) {
+    return fetch(`${EXPLORER_API}/signup`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify({

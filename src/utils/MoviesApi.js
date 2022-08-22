@@ -1,4 +1,8 @@
-import { getResult, headers } from "./MainApi"
+import { getResult } from "./MainApi"
+
+let headers = {
+    'Content-Type': 'application/json'
+  };
 
 const url = "https://api.nomoreparties.co/";
 

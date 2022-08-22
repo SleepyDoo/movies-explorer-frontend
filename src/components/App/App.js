@@ -2,6 +2,9 @@ import "./App.css";
 import "../../vendor/normalize.css"
 import React from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import { useCookies, withCookies } from "react-cookie"
+
 
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -16,13 +19,15 @@ import Footer from "../Footer/Footer";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import Preloader from "../Preloader/Preloader";
 import { getAllMovies } from "../../utils/MoviesApi";
+import { createUser, login, updateUser, getUser, deleteMovie, getMovies, createMovie } from "../../utils/MainApi";
 
 
+//export default withRouter(Header);
 
 function App() {
 
-  const isLoggedIn = true;
   const location = useLocation();
+  const history = createBrowserHistory();
 
   const [currentPage, setCurrentPage] = React.useState(location.pathname.toLowerCase());
   const [isNavMenuOpened, setIsNavMenuOpened] = React.useState(false);
@@ -31,6 +36,12 @@ function App() {
   const [errorName, setErrorName] = React.useState("Что-то пошло не так");
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
+  const [headers, setHeaders] = React.useState({
+    'Content-Type': 'application/json',
+    'authorization': 'Bearer ' + localStorage.getItem("jwt")
+  })
 
   function openMenu() {
     setIsNavMenuOpened(true);
@@ -61,7 +72,18 @@ function App() {
   const headerBlue = (currentPage === "/");
   const headerDark = (currentPage === '/movies' || currentPage === '/saved-movies' || currentPage === '/profile');
 
-  // to API
+  function closeErrorPopup() {
+    setIsErrorPopupOpened(false);
+  }
+
+
+
+
+
+
+
+
+  // MOVIES
 
   const getMovies = () => {
     setIsPreloaderOpened(true);
@@ -94,7 +116,7 @@ function App() {
         setIsPreloaderOpened(false);
       });
   }
-  
+
   React.useEffect(() => {
     const localMovies = JSON.parse(localStorage.getItem('allMovies'));
     if (localMovies) {
@@ -114,9 +136,69 @@ function App() {
     }
   }, []);
 
-  function closeErrorPopup() {
-    setIsErrorPopupOpened(false);
+
+
+
+  // AUTH
+
+  function handleRegister(data) {
+    console.log(history);
+    setIsPreloaderOpened(true);
+    createUser(data, headers)
+      .then((res) => {
+        console.log(res);
+        setIsPreloaderOpened(false);
+        // history.push("/signin");
+        // window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrorName(err.name);
+        setIsErrorPopupOpened(true);
+        setIsPreloaderOpened(false);
+    })
   }
+
+  function handleLogin(data) {
+    setIsPreloaderOpened(true);
+    console.log(headers, "headers");
+    login(data, headers)
+      .then((data) => {
+        console.log(data,"login data");
+        if (data) {
+          localStorage.setItem("jwt", data.data);
+        }
+        setIsLoggedIn(true);
+        setIsPreloaderOpened(false);
+        // history.push("/movies");
+        // window.location.reload();
+      })
+      .catch((err) => {
+        setErrorName(err.message);
+        setIsErrorPopupOpened(true);
+        setIsPreloaderOpened(false);
+    })
+  }
+
+  
+
+  React.useEffect(() => {
+    console.log(cookies, "cookies");
+    console.log(headers, "headers2");
+    if (cookies || localStorage.getItem("jwt")) {
+      getUser(headers)
+      .then((data) => {
+        console.log(data, "data");
+        localStorage.setItem("user", JSON.stringify(data));
+      })
+      .catch(() => {
+        localStorage.removeItem("jwt");
+      })
+    }
+  }, []);
+
+
+
 
   return (
     <div className="app">
@@ -133,9 +215,9 @@ function App() {
 
           <Route path="/profile" element={<Profile />} />
 
-          <Route path="/signin" element={<Login />} />
+          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
           
-          <Route path="/signup" element={<Register />} />
+          <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
