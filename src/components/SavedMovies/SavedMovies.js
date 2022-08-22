@@ -2,22 +2,74 @@ import React from 'react';
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 import MoreButton from "./MoreButton/MoreButton";
-import Preloader from '../Preloader/Preloader';
-import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import "../Movies/Movies.css";
 
-const Movies = () => {
+const Movies = (props) => {
 
-    const [isErrorPopupOpened, setIsErrorPopupOpened] = React.useState(false);
-    const [isPreloaderOpened, setIsPreloaderOpened] = React.useState(false);
+    let { savedMovies } = props;
+
+    const [showedMovies, setShowedMovies] = React.useState([]);
+    const [currentAmount, setCurrentAmount] = React.useState(0);
+    const [initialMovieNum, setinitialMovieNum] = React.useState(0);
+    const [rise, setRise] = React.useState(3);
+    const [isMoreButtonVisible, setIsMoreButtonVisible] = React.useState(true);
+    const [filteredData, setFilteredData] = React.useState([]);
+    const [notFound, setNotFound] = React.useState(false);
+
+
+    React.useEffect(() => {
+        if (props.width >= 768) {
+            setinitialMovieNum(12);
+            setRise(3);
+        }
+        if (props.width < 768 && props.width >= 480) {
+            setinitialMovieNum(8);
+            setRise(2);
+        }
+        if (props.width < 480) {
+            setinitialMovieNum(5);
+            setRise(1);
+        }
+    }, [props.width]);
+
+    React.useEffect(() => {
+        if (filteredData.length < initialMovieNum) {
+            setIsMoreButtonVisible(false);
+        } else {
+            setIsMoreButtonVisible(true);
+        }
+
+        if (filteredData.length > 0) {
+            setNotFound(false);
+        } else {
+            setNotFound(true);
+        }
+    }, [filteredData.length, initialMovieNum]);
+
+    function setMoviesToRender() {
+        const num = Math.min(filteredData.length, initialMovieNum);
+        setShowedMovies(filteredData.slice(0, num));
+        setCurrentAmount(num);
+    }
+
+    const addRow = () => {
+        const num = Math.min(filteredData.length, currentAmount + rise);
+        const next = filteredData.slice(currentAmount, num);
+        setShowedMovies([...showedMovies, ...next]);
+        setCurrentAmount(num);
+        if (filteredData.length === num) {
+            setIsMoreButtonVisible(false);
+        }
+      };
+
+    React.useEffect(setMoviesToRender, [filteredData, initialMovieNum]);
 
     return (
         <section className="movies">
-            <SearchForm />
-            <MoviesCardList />
-            <MoreButton />
-            <ErrorPopup error="вы ошиблdsds dsdssds dsddsds dsdsdsdись" isOpen={isErrorPopupOpened} />
-            <Preloader isOpen={isPreloaderOpened} />
+            <SearchForm movies={savedMovies} setFilterToData={setFilteredData} />
+            {notFound ? <p className="movies__not-found movies__not-found_visible">Фильмы не найдены</p> : null}
+            <MoviesCardList movies={showedMovies} />
+            {isMoreButtonVisible ? <MoreButton action={addRow} /> : null}
         </section >
     )
 }

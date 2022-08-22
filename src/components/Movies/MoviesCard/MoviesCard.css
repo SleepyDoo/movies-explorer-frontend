@@ -12,6 +12,11 @@
     object-fit: cover;
 }
 
+.movies-card__link {
+    display: block;
+    height: 203px;
+}
+
 .movies-card__film-name {
     font-weight: 500;
     font-size: 13px;
@@ -78,6 +83,10 @@
         object-fit: cover;
     }
 
+    .movies-card__link {
+        height: 190px;
+    }
+
 }
 
 @media screen and (max-width: 360px) {
@@ -101,6 +110,10 @@
     }
 
     .movies-card__img {
+        height: 168px;
+    }
+
+    .movies-card__link {
         height: 168px;
     }
 

@@ -1,9 +1,9 @@
 import "./MoreButton.css"
 import React from 'react';
 
-const MoreButton = () => {
+const MoreButton = (props) => {
     return (
-        <button className="more-button" type="submit">Еще</button>
+        <button className="more-button" type="submit" onClick={props.action}>Еще</button>
     )
 }
 

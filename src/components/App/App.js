@@ -21,8 +21,6 @@ import { getAllMovies } from "../../utils/MoviesApi";
 
 function App() {
 
-  const movieApiUrl = "https://api.nomoreparties.co"; // to constants
-
   const isLoggedIn = true;
   const location = useLocation();
 
@@ -32,6 +30,7 @@ function App() {
   const [isPreloaderOpened, setIsPreloaderOpened] = React.useState(false);
   const [errorName, setErrorName] = React.useState("Что-то пошло не так");
   const [allMovies, setAllMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
 
   function openMenu() {
     setIsNavMenuOpened(true);
@@ -64,37 +63,12 @@ function App() {
 
   // to API
 
-  function fixMovieData (movie) {
-    const url = movieApiUrl + movie.image.url;
-    let hours;
-    let minutes;
-    if (movie.duration > 60) {
-      hours = 0;
-    }
-    if (movie.duration % 60 === 0) {
-      minutes = 0;
-      hours = movie.duration / 60;
-    }
-    if (movie.duration % 60 !== 0) {
-      minutes = movie.duration % 60;
-      hours = (movie.duration - minutes) / 60;
-    }
-
-    const dur = `${hours ? `${hours}ч` : "" } ${minutes ? `${minutes}мин` : ""}`
-
-    return {...movie, image: url, duration: dur}
-
-  }
-
   const getMovies = () => {
     setIsPreloaderOpened(true);
     getAllMovies()
       .then((res) => {
-        console.log(res, "res");
-        const newData = res.map(fixMovieData);
-        console.log(newData, "newData");
-        setAllMovies(newData);
-        localStorage.setItem("allMovies", newData);
+        setAllMovies(res);
+        localStorage.setItem("allMovies", JSON.stringify(res));
         setIsPreloaderOpened(false);
       })
       .catch(() => {
@@ -105,15 +79,44 @@ function App() {
       });
 }
 
+  const getSavedMovies = () => {
+    setIsPreloaderOpened(true);
+    getAllMovies()
+      .then((res) => {
+        setSavedMovies(res);
+        localStorage.setItem("savedMovies", JSON.stringify(res));
+        setIsPreloaderOpened(false);
+      })
+      .catch(() => {
+        setErrorName("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+        localStorage.removeItem("savedMovies");
+        setIsErrorPopupOpened(true);
+        setIsPreloaderOpened(false);
+      });
+  }
+  
   React.useEffect(() => {
-    // const localMovies = localStorage.getItem('allMovies');
-    // if (localMovies) {
-    //   setAllMovies(localMovies);
-    // } else {
-    //   getMovies();
-    // }
-    getMovies();
+    const localMovies = JSON.parse(localStorage.getItem('allMovies'));
+    if (localMovies) {
+      setAllMovies(localMovies);
+    } else {
+      getMovies();
+    }
   }, []);
+
+
+  React.useEffect(() => {
+    const localMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    if (localMovies) {
+      setSavedMovies(localMovies);
+    } else {
+      getSavedMovies();
+    }
+  }, []);
+
+  function closeErrorPopup() {
+    setIsErrorPopupOpened(false);
+  }
 
   return (
     <div className="app">
@@ -126,7 +129,7 @@ function App() {
 
           <Route path="/movies" element={<Movies width={width} allMovies={allMovies} />} />
       
-          <Route path="/saved-movies" element={<SavedMovies />} />
+          <Route path="/saved-movies" element={<SavedMovies width={width} savedMovies={savedMovies} />} />
 
           <Route path="/profile" element={<Profile />} />
 
@@ -138,7 +141,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-      <ErrorPopup error={errorName} isOpen={isErrorPopupOpened} />
+      <ErrorPopup error={errorName} isOpen={isErrorPopupOpened} onClose={closeErrorPopup} />
       <Preloader isOpen={isPreloaderOpened} />
     </div>
   );

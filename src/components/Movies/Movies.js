@@ -1,20 +1,21 @@
 import React from 'react';
-import { useEffect } from 'react';
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 import MoreButton from "./MoreButton/MoreButton";
-import Preloader from "../Preloader/Preloader";
+// import { fixMovieData, filterMovies } from '../../utils/MoviesParser';
 import "./Movies.css"
 
 const Movies = (props) => {
 
-    let{ allMovies } = props;
+    let { allMovies } = props;
 
     const [showedMovies, setShowedMovies] = React.useState([]);
     const [currentAmount, setCurrentAmount] = React.useState(0);
     const [initialMovieNum, setinitialMovieNum] = React.useState(0);
     const [rise, setRise] = React.useState(3);
     const [isMoreButtonVisible, setIsMoreButtonVisible] = React.useState(true);
+    const [filteredData, setFilteredData] = React.useState([]);
+    const [notFound, setNotFound] = React.useState(false);
 
     React.useEffect(() => {
         if (props.width >= 768) {
@@ -31,35 +32,44 @@ const Movies = (props) => {
         }
     }, [props.width]);
 
+    React.useEffect(() => {
+        if (filteredData.length < initialMovieNum) {
+            setIsMoreButtonVisible(false);
+        } else {
+            setIsMoreButtonVisible(true);
+        }
+
+        if (filteredData.length > 0) {
+            setNotFound(false);
+        } else {
+            setNotFound(true);
+        }
+    }, [filteredData.length, initialMovieNum]);
 
     function setMoviesToRender() {
-        const num = Math.min(allMovies.length, initialMovieNum);
-        setShowedMovies(allMovies.slice(0, num));
+        const num = Math.min(filteredData.length, initialMovieNum);
+        setShowedMovies(filteredData.slice(0, num));
         setCurrentAmount(num);
     }
 
     const addRow = () => {
-        console.log("addrow");
-        const num = Math.min(allMovies.length, currentAmount + rise);
-        console.log(num, "num");
-        console.log(currentAmount, "cuur am");
-        const next = allMovies.slice(currentAmount, num);
+        const num = Math.min(filteredData.length, currentAmount + rise);
+        const next = filteredData.slice(currentAmount, num);
         setShowedMovies([...showedMovies, ...next]);
         setCurrentAmount(num);
-        if (allMovies.length === num) {
+        if (filteredData.length === num) {
             setIsMoreButtonVisible(false);
         }
       };
 
-    useEffect(setMoviesToRender, [allMovies, initialMovieNum]);
+    React.useEffect(setMoviesToRender, [filteredData, initialMovieNum]);
 
     return (
         <section className="movies">
-            <SearchForm />
+            <SearchForm allMovies={allMovies} setFilterToData={setFilteredData} />
+            {notFound ? <p className="movies__not-found movies__not-found_visible">Фильмы не найдены</p> : null}
             <MoviesCardList movies={showedMovies} />
-            <MoreButton action={addRow} isOpen={isMoreButtonVisible} />
-            <Preloader />
-
+            {isMoreButtonVisible ? <MoreButton action={addRow} /> : null}
         </section >
     )
 }
