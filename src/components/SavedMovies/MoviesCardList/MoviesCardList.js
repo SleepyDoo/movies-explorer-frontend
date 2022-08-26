@@ -1,17 +1,17 @@
-import MoviesCard from "../../Movies/MoviesCard/MoviesCard";
+import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css"
+import { fixMovieDuraton } from "../../../utils/MoviesParser";
 import React from 'react';
-import { fixMovieData } from "../../../utils/MoviesParser";
 
 const MoviesCardList = (props) => {
 
-    const moviesToRender = props.movies.map(fixMovieData);
+    const fixedData = props.movies.map(fixMovieDuraton);
 
     return (
         <div className="movies-card-list">
             <div className="movies-card-list__container">
-                {moviesToRender.map((movie) => {
-                    return <MoviesCard nameRU={movie.nameRU} duration={movie.duration} image={movie.image} key={movie.id} />
+                {fixedData.map((movie) => {
+                    return <MoviesCard movie={movie} key={movie.movieId} onDelete={props.deleteSavedMovie} deleteFromFiltered={props.deleteFromFiltered} />
                 })}
             </div>
         </div>

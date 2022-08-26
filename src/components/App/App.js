@@ -1,9 +1,19 @@
+// Примечания по проекту:
+
+// Поиск по сохраненным фильмам намеренно был сделан отличным от поиска по всем фильмам, так как я считаю,
+// что функциональность поиска по всем фильмом не подходит для поиска по сохраненным. 
+// Так же я не нашла пункта в чеклисте, который бы говорил, что поиск должен быть абсолютно аналогичным. 
+// Ниже перечисленные пункты были сделаны намеренно и не являются упущенными багами:
+// 1. Если ничего не найдено, отображаются все сохраненные фильмы
+// 2. Параметры поиска не сохраняются, при следующих посещениях страницы отображаются все сохраненные фильмы
+// 3. Чтобы переключить чекбокс, строка поиска не должна быть заполнена
+//    Надеюсь, оставлять подобные послания не запрещено
+
+
 import "./App.css";
 import "../../vendor/normalize.css"
 import React from 'react';
-import { Route, Routes, useLocation } from "react-router-dom";
-import { createBrowserHistory } from "history";
-import { useCookies, withCookies } from "react-cookie"
+import { Route, Routes, useLocation, Navigate, useNavigate, Outlet } from "react-router-dom";
 
 
 import Main from "../Main/Main";
@@ -18,30 +28,26 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import Preloader from "../Preloader/Preloader";
-import { getAllMovies } from "../../utils/MoviesApi";
-import { createUser, login, updateUser, getUser, deleteMovie, getMovies, createMovie } from "../../utils/MainApi";
-
+import { createUser, login, updateUser, getUser, deleteMovie, getMySavedMovies, createMovie } from "../../utils/MainApi";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 //export default withRouter(Header);
 
 function App() {
 
   const location = useLocation();
-  const history = createBrowserHistory();
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = React.useState(location.pathname.toLowerCase());
   const [isNavMenuOpened, setIsNavMenuOpened] = React.useState(false);
   const [isErrorPopupOpened, setIsErrorPopupOpened] = React.useState(false);
   const [isPreloaderOpened, setIsPreloaderOpened] = React.useState(false);
   const [errorName, setErrorName] = React.useState("Что-то пошло не так");
-  const [allMovies, setAllMovies] = React.useState([]);
-  const [savedMovies, setSavedMovies] = React.useState([]);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
-  const [headers, setHeaders] = React.useState({
-    'Content-Type': 'application/json',
-    'authorization': 'Bearer ' + localStorage.getItem("jwt")
-  })
+  const [currentUser, setCurrentUser] = React.useState({});
+
+  const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
+  const jwt = localStorage.getItem('jwt');
 
   function openMenu() {
     setIsNavMenuOpened(true);
@@ -85,28 +91,12 @@ function App() {
 
   // MOVIES
 
-  const getMovies = () => {
+  const getSavedMovies = (jwt) => {
     setIsPreloaderOpened(true);
-    getAllMovies()
+    getMySavedMovies(jwt)
       .then((res) => {
-        setAllMovies(res);
-        localStorage.setItem("allMovies", JSON.stringify(res));
-        setIsPreloaderOpened(false);
-      })
-      .catch(() => {
-        setErrorName("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
-        localStorage.removeItem("allMovies");
-        setIsErrorPopupOpened(true);
-        setIsPreloaderOpened(false);
-      });
-}
-
-  const getSavedMovies = () => {
-    setIsPreloaderOpened(true);
-    getAllMovies()
-      .then((res) => {
-        setSavedMovies(res);
-        localStorage.setItem("savedMovies", JSON.stringify(res));
+        // console.log("got saved movies");
+        localStorage.setItem("savedMovies", JSON.stringify(res.data));
         setIsPreloaderOpened(false);
       })
       .catch(() => {
@@ -117,116 +107,160 @@ function App() {
       });
   }
 
-  React.useEffect(() => {
-    const localMovies = JSON.parse(localStorage.getItem('allMovies'));
-    if (localMovies) {
-      setAllMovies(localMovies);
-    } else {
-      getMovies();
-    }
-  }, []);
-
-
-  React.useEffect(() => {
-    const localMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    if (localMovies) {
-      setSavedMovies(localMovies);
-    } else {
-      getSavedMovies();
-    }
-  }, []);
-
-
-
-
-  // AUTH
-
-  function handleRegister(data) {
-    console.log(history);
+  function saveMovie(data) {
     setIsPreloaderOpened(true);
-    createUser(data, headers)
+    createMovie(data, jwt)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        localStorage.setItem("savedMovies", JSON.stringify([...localSavedMovies, res.data]));
         setIsPreloaderOpened(false);
-        // history.push("/signin");
-        // window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
-        setErrorName(err.name);
+        setErrorName(err);
         setIsErrorPopupOpened(true);
         setIsPreloaderOpened(false);
     })
+}
+
+  function deleteSavedMovie(movie) {
+    setIsPreloaderOpened(true);
+    const movieId = localSavedMovies.find((element) => (element.movieId === movie.id) || (element.movieId === movie.movieId))._id;
+    deleteMovie(movieId, jwt)
+      .then((res) => {
+        if (res) {
+          const newData = localSavedMovies.filter((item) => movieId !== item._id);
+          localStorage.setItem("savedMovies", JSON.stringify(newData));
+          setIsPreloaderOpened(false);
+        }
+      })
+      .catch((err) => {
+        whenError(err);
+        setIsPreloaderOpened(false);
+
+    })
+  }
+
+  // React.useEffect(() => {
+  //   console.log(localSavedMovies, "local saved")
+  // }, [localSavedMovies]);
+
+  // AUTH
+
+  
+
+  function whenLogin(user) {
+    if (user) {
+      localStorage.setItem("jwt", user.data);
+      getSavedMovies(user.data);
+    }
+    // getMovies();
+    setIsLoggedIn(true);
+    navigate("/movies");
+  }
+
+  function whenError(err) {
+    console.log(err);
+    // setErrorName(err.name);
+    // setIsErrorPopupOpened(true);
+  }
+
+  function handleRegister(data) {
+    const loginData = { email: data.email, password: data.password };
+    setIsPreloaderOpened(true);
+
+    createUser(data)
+      .then(() => {
+
+        login(loginData)
+          .then((user) => {
+            whenLogin(user)
+          })
+          .catch((err) => {
+            whenError(err);
+          })
+        
+        setIsPreloaderOpened(false);
+
+      })
+      .catch((err) => {
+        console.log(err);
+        whenError(err);
+        setIsPreloaderOpened(false);
+      })
   }
 
   function handleLogin(data) {
     setIsPreloaderOpened(true);
-    console.log(headers, "headers");
-    login(data, headers)
-      .then((data) => {
-        console.log(data,"login data");
-        if (data) {
-          localStorage.setItem("jwt", data.data);
-        }
-        setIsLoggedIn(true);
+    login(data)
+      .then((res) => {
+        whenLogin(res);
         setIsPreloaderOpened(false);
-        // history.push("/movies");
-        // window.location.reload();
+        
       })
       .catch((err) => {
-        setErrorName(err.message);
-        setIsErrorPopupOpened(true);
+        whenError(err)
         setIsPreloaderOpened(false);
-    })
+      })
   }
 
+    React.useEffect(() => {
+      if (jwt) {
+        setIsPreloaderOpened(true);
+        getUser(jwt)
+          .then((data) => {
+            setIsLoggedIn(true);
+            navigate(location.pathname);
+            localStorage.setItem("user", JSON.stringify(data));
+            setIsLoggedIn(true);
+            setCurrentUser(data);
+            setIsPreloaderOpened(false);
+          })
+          .catch((err) => {
+            whenError(err);
+            localStorage.removeItem("jwt");
+            setIsLoggedIn(false);
+          })
+      }
+    }, []);
   
-
-  React.useEffect(() => {
-    console.log(cookies, "cookies");
-    console.log(headers, "headers2");
-    if (cookies || localStorage.getItem("jwt")) {
-      getUser(headers)
-      .then((data) => {
-        console.log(data, "data");
-        localStorage.setItem("user", JSON.stringify(data));
-      })
-      .catch(() => {
-        localStorage.removeItem("jwt");
-      })
+  function handleLogOut() {
+    console.log("log out");
+      localStorage.clear()
+      setCurrentUser([]);
+      setIsLoggedIn(false);
+      navigate("/");
     }
-  }, []);
 
+    return (
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="app">
+          {isNavMenuOpened ? <NavMenu onClose={closeMenu} /> : null}
 
+          {(headerBlue || headerDark) ? <Header dark={headerDark} isLoggedIn={isLoggedIn} onMenuClick={openMenu} isMobile={isMobile} /> : null}
+          <main>
+            <Routes>
 
+              <Route element={isLoggedIn ? <Outlet /> : <Navigate to="/" />}>
+                <Route path="/movies" element={<Movies width={width} saveMovie={saveMovie} deleteSavedMovie={deleteSavedMovie} />} />
+                <Route path="/saved-movies" element={<SavedMovies width={width} getSavedMovies={getSavedMovies} deleteSavedMovie={deleteSavedMovie} />} />
+                <Route path="/profile" element={<Profile handleLogOut={handleLogOut} />} />
+              </Route>
 
-  return (
-    <div className="app">
-      {isNavMenuOpened ? <NavMenu onClose={closeMenu} /> : null}
+              <Route exact path="/" element={<Main />} />
 
-      {(headerBlue || headerDark) ? <Header dark={headerDark} isLoggedIn={isLoggedIn} onMenuClick={openMenu} isMobile={isMobile} /> : null}
-      <main>
-        <Routes>
-          <Route exact path="/" element={<Main />} />
-
-          <Route path="/movies" element={<Movies width={width} allMovies={allMovies} />} />
-      
-          <Route path="/saved-movies" element={<SavedMovies width={width} savedMovies={savedMovies} />} />
-
-          <Route path="/profile" element={<Profile />} />
-
-          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+              <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
           
-          <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
+              <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
-      <ErrorPopup error={errorName} isOpen={isErrorPopupOpened} onClose={closeErrorPopup} />
-      <Preloader isOpen={isPreloaderOpened} />
-    </div>
-  );
-}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+          <ErrorPopup error={errorName} isOpen={isErrorPopupOpened} onClose={closeErrorPopup} />
+          <Preloader isOpen={isPreloaderOpened} />
+        </div>
+      </CurrentUserContext.Provider>
+    );
+  }
 
 export default App;

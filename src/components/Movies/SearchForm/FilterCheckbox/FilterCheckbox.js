@@ -7,7 +7,7 @@ const FilterCheckbox = (props) => {
                 type="checkbox"
                 id="short-films"
                 onChange={props.handler}
-                value={props.value}/>
+                checked={props.value} />
             <div className="filter-checkbox__container" />
             <span className="filter-checkbox__checkbox-name">Короткометражки</span>
         </label>

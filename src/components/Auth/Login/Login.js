@@ -3,18 +3,51 @@ import "../Auth.css"
 import AuthHeader from "../AuthHeader/AuthHeader";
 import React from 'react';
 import { Link } from "react-router-dom"; 
+import { validateEmail, validateOther } from "../../../utils/Validaton";
 
 const Login = (props) => {
 
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [emailError, setEmailError] = React.useState("");
+    const [isEmailValid, setIsEmailValid] = React.useState(false);
+    const [passwordError, setPasswordError] = React.useState("");
+    const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+
+    const isFormValid = (isEmailValid && isPasswordValid);
+
+    React.useEffect(() => {
+        const validation = validateOther(password);
+        setIsPasswordValid(validation.isValid);
+        if (!validation.isValid) {
+            setPasswordError(validation.error);
+        }
+    }, [password]);
+
+    React.useEffect(() => {
+        const validation = validateEmail(email);
+        setIsEmailValid(validation.isValid);
+        if (!validation.isValid) {
+            setEmailError(validation.error);
+        }
+    }, [email]);
 
     function handlePasswordChange(evt) {
         setPassword(evt.target.value);
+        const validation = validateOther(password);
+        setIsPasswordValid(validation.isValid);
+        if (!validation.isValid) {
+            setPasswordError(validation.error);
+        }
     }
 
     function handleEmailChange(evt) {
         setEmail(evt.target.value);
+        const validation = validateEmail(email);
+        setIsEmailValid(validation.isValid);
+        if (!validation.isValid) {
+            setEmailError(validation.error);
+        }
     }
 
 
@@ -22,6 +55,9 @@ const Login = (props) => {
         evt.preventDefault();
         props.handleLogin({email, password})
     }
+
+
+
 
     return (
         <section className="login">
@@ -31,24 +67,26 @@ const Login = (props) => {
                 <fieldset className="auth__fieldset">
                     <p className="auth__input-label">E-mail</p>
                     <input
-                        className="auth__input"
+                        className={`auth__input ${isEmailValid ? "" : "auth__input_errored"}`}
                         type="email"
                         name="email"
                         required
                         autoComplete="off"
                         value={email}
                         onChange={handleEmailChange} />
+                    {isEmailValid ? null : <p className="auth__error">{emailError}</p>}
                     <p className="auth__input-label">Пароль</p>
                     <input
-                        className="auth__input"
+                        className={`auth__input ${isPasswordValid ? "" : "auth__input_errored"}`}
                         type="password"
                         name="password"
                         required
                         autoComplete="off"
                         value={password}
                         onChange={handlePasswordChange} />
+                    {isPasswordValid ? null : <p className="auth__error">{passwordError}</p>}
                 </fieldset>
-                <button type="submit" className="auth__button">Войти</button>
+                <button type="submit" className={`auth__button ${isFormValid ? "" : "auth__button_inactive"}`} disabled={!isFormValid}>Войти</button>
             </form>
             <div className="auth__container">
                 <p className="auth__question">Ещё не зарегистрированы?</p>

@@ -1,75 +1,61 @@
 import React from 'react';
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
-import MoreButton from "./MoreButton/MoreButton";
 import "../Movies/Movies.css";
 
 const Movies = (props) => {
 
-    let { savedMovies } = props;
+    const moviesFromStorage = JSON.parse(localStorage.getItem("savedMovies"));
 
-    const [showedMovies, setShowedMovies] = React.useState([]);
-    const [currentAmount, setCurrentAmount] = React.useState(0);
-    const [initialMovieNum, setinitialMovieNum] = React.useState(0);
-    const [rise, setRise] = React.useState(3);
-    const [isMoreButtonVisible, setIsMoreButtonVisible] = React.useState(true);
     const [filteredData, setFilteredData] = React.useState([]);
     const [notFound, setNotFound] = React.useState(false);
+    const [isFilter, setIsFilter] = React.useState(false);
+    
 
-
+    // React.useEffect(() => {
+    //     console.log(isFilter, "isFilter");
+    // }, [isFilter]);
+    
     React.useEffect(() => {
-        if (props.width >= 768) {
-            setinitialMovieNum(12);
-            setRise(3);
-        }
-        if (props.width < 768 && props.width >= 480) {
-            setinitialMovieNum(8);
-            setRise(2);
-        }
-        if (props.width < 480) {
-            setinitialMovieNum(5);
-            setRise(1);
-        }
-    }, [props.width]);
+        setFilteredData([]);
+    }, [])
 
-    React.useEffect(() => {
-        if (filteredData.length < initialMovieNum) {
-            setIsMoreButtonVisible(false);
-        } else {
-            setIsMoreButtonVisible(true);
-        }
-
+    function deleteFromFiltered(movie) {
         if (filteredData.length > 0) {
+            const newData = filteredData.filter((movieFromFilter) => {
+                if (movieFromFilter.movieId === movie.movieId) {
+                    return null;
+                } else {
+                    return movieFromFilter;
+                }
+            });
+                setFilteredData(newData);
+            }
+    }
+    
+    React.useEffect(() => {
+        if (moviesFromStorage.length > 0) {
             setNotFound(false);
         } else {
             setNotFound(true);
         }
-    }, [filteredData.length, initialMovieNum]);
+    }, [moviesFromStorage.length]);
 
     function setMoviesToRender() {
-        const num = Math.min(filteredData.length, initialMovieNum);
-        setShowedMovies(filteredData.slice(0, num));
-        setCurrentAmount(num);
+        if (filteredData.length > 0) {
+            setIsFilter(true);
+        } else {
+            setIsFilter(false);
+        }
     }
 
-    const addRow = () => {
-        const num = Math.min(filteredData.length, currentAmount + rise);
-        const next = filteredData.slice(currentAmount, num);
-        setShowedMovies([...showedMovies, ...next]);
-        setCurrentAmount(num);
-        if (filteredData.length === num) {
-            setIsMoreButtonVisible(false);
-        }
-      };
-
-    React.useEffect(setMoviesToRender, [filteredData, initialMovieNum]);
+    React.useEffect(setMoviesToRender, [filteredData]);
 
     return (
         <section className="movies">
-            <SearchForm movies={savedMovies} setFilterToData={setFilteredData} />
-            {notFound ? <p className="movies__not-found movies__not-found_visible">Фильмы не найдены</p> : null}
-            <MoviesCardList movies={showedMovies} />
-            {isMoreButtonVisible ? <MoreButton action={addRow} /> : null}
+            <SearchForm setFilterToData={setFilteredData} filteredData={filteredData} />
+            {notFound ? <p className="movies__not-found movies__not-found_visible">Список сохраненных фильмов пуст</p> : null}
+            <MoviesCardList movies={isFilter ? filteredData : moviesFromStorage} deleteSavedMovie={props.deleteSavedMovie} deleteFromFiltered={deleteFromFiltered} />
         </section >
     )
 }

@@ -7,8 +7,8 @@ import "./Movies.css"
 
 const Movies = (props) => {
 
-    let { allMovies } = props;
-
+    let { saveMovie } = props;
+    
     const [showedMovies, setShowedMovies] = React.useState([]);
     const [currentAmount, setCurrentAmount] = React.useState(0);
     const [initialMovieNum, setinitialMovieNum] = React.useState(0);
@@ -16,6 +16,8 @@ const Movies = (props) => {
     const [isMoreButtonVisible, setIsMoreButtonVisible] = React.useState(true);
     const [filteredData, setFilteredData] = React.useState([]);
     const [notFound, setNotFound] = React.useState(false);
+
+    
 
     React.useEffect(() => {
         if (props.width >= 768) {
@@ -46,6 +48,13 @@ const Movies = (props) => {
         }
     }, [filteredData.length, initialMovieNum]);
 
+    React.useEffect(() => {
+        const movies = JSON.parse(localStorage.getItem("filteredFilms"));
+        if (movies) {
+            setFilteredData(movies.films);
+        }
+    }, [])
+
     function setMoviesToRender() {
         const num = Math.min(filteredData.length, initialMovieNum);
         setShowedMovies(filteredData.slice(0, num));
@@ -64,11 +73,13 @@ const Movies = (props) => {
 
     React.useEffect(setMoviesToRender, [filteredData, initialMovieNum]);
 
+    
+
     return (
         <section className="movies">
-            <SearchForm allMovies={allMovies} setFilterToData={setFilteredData} />
+            <SearchForm setFilterToData={setFilteredData} />
             {notFound ? <p className="movies__not-found movies__not-found_visible">Фильмы не найдены</p> : null}
-            <MoviesCardList movies={showedMovies} />
+            <MoviesCardList movies={showedMovies} saveMovie={saveMovie} deleteSavedMovie={props.deleteSavedMovie} />
             {isMoreButtonVisible ? <MoreButton action={addRow} /> : null}
         </section >
     )

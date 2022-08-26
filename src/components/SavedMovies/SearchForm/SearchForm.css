@@ -56,6 +56,15 @@
     background-repeat: no-repeat;
 }
 
+.search-form__not-found {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: gray;
+    text-align: center;
+    margin-top: 20px;
+}
+
 @media screen and (max-width: 768px) {
     .search-form {
         padding: 80px 0 51px;

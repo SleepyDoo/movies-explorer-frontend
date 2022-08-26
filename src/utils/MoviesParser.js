@@ -1,7 +1,6 @@
 import { MOVIES_API } from "./constants";
 
-export function fixMovieData(movie) {
-    const url = MOVIES_API + movie.image.url;
+export function fixMovieDuraton(movie) {
     let hours;
     let minutes;
     if (movie.duration > 60) {
@@ -18,9 +17,14 @@ export function fixMovieData(movie) {
 
     const dur = `${hours ? `${hours}ч` : "" } ${minutes ? `${minutes}мин` : ""}`
 
-    return {...movie, image: url, duration: dur}
+    return {...movie, duration: dur}
 
-  }
+}
+  
+export function fixMovieImageAndId(movie) {
+  const url = MOVIES_API + movie.image.url;
+  return {...movie, image: url, movieId: movie.id}
+}
 
 export function filterMovies(array, key, isShort) {
   // console.log(array);
@@ -55,6 +59,6 @@ export function filterMovies(array, key, isShort) {
       }
       return null;
     })
-  // console.log(found);
+  // console.log(found, "found");
   return found;
   }

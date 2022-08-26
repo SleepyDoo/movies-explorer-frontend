@@ -1,17 +1,14 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css"
 import React from 'react';
-import { fixMovieData } from "../../../utils/MoviesParser";
 
 const MoviesCardList = (props) => {
-
-    const moviesToRender = props.movies.map(fixMovieData);
-
+    // console.log(props.movies);
     return (
         <div className="movies-card-list">
             <div className="movies-card-list__container">
-                {moviesToRender.map((movie) => {
-                    return <MoviesCard nameRU={movie.nameRU} duration={movie.duration} image={movie.image} trailerLink={movie.trailerLink} key={movie.id} />
+                {props.movies.map((movie) => {
+                    return <MoviesCard allData={movie} onLike={props.saveMovie} key={movie.id} deleteSavedMovie={props.deleteSavedMovie} />
                 })}
             </div>
         </div>
