@@ -20,11 +20,11 @@ const Movies = (props) => {
     
 
     React.useEffect(() => {
-        if (props.width >= 768) {
+        if (props.width >= 1279) {
             setinitialMovieNum(12);
             setRise(3);
         }
-        if (props.width < 768 && props.width >= 480) {
+        if (props.width < 1279 && props.width >= 767) {
             setinitialMovieNum(8);
             setRise(2);
         }

@@ -11,11 +11,6 @@ const Movies = (props) => {
     const [notFound, setNotFound] = React.useState(false);
     const [isFilter, setIsFilter] = React.useState(false);
     
-
-    // React.useEffect(() => {
-    //     console.log(isFilter, "isFilter");
-    // }, [isFilter]);
-    
     React.useEffect(() => {
         setFilteredData([]);
     }, [])

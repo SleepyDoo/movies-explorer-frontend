@@ -91,6 +91,7 @@ const SearchForm = (props) => {
         if (keyWord !== "") {
             handleSearch();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isShort])
 
     return (

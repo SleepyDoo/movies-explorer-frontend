@@ -63,6 +63,7 @@ const SearchForm = (props) => {
     
     React.useEffect(() => {
         saveFilterData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isShort])
     
     

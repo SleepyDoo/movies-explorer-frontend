@@ -5,8 +5,7 @@ const MoviesCard = (props) => {
     const { movie, deleteFromFiltered, onDelete } = props;
 
     function handleDelete() {
-        onDelete(movie);
-        deleteFromFiltered(movie);
+        onDelete(movie, deleteFromFiltered);
     }
 
     return (

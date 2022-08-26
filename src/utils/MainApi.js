@@ -74,7 +74,7 @@ export function getUser(jwt) {
 
 export function updateUser(data, jwt) {
     return fetch(`${EXPLORER_API}/users/me`, {
-        method: 'GET',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             'Access-Control-Allow-Credentials': 'true',

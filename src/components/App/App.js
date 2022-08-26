@@ -4,7 +4,7 @@
 // что функциональность поиска по всем фильмом не подходит для поиска по сохраненным. 
 // Так же я не нашла пункта в чеклисте, который бы говорил, что поиск должен быть абсолютно аналогичным. 
 // Ниже перечисленные пункты были сделаны намеренно и не являются упущенными багами:
-// 1. Если ничего не найдено, отображаются все сохраненные фильмы
+// 1. Если ничего не найдено, отображаются все сохраненные фильмы, а заданные параметры поиска очищаются
 // 2. Параметры поиска не сохраняются, при следующих посещениях страницы отображаются все сохраненные фильмы
 // 3. Чтобы переключить чекбокс, строка поиска не должна быть заполнена
 //    Надеюсь, оставлять подобные послания не запрещено
@@ -28,10 +28,10 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import Preloader from "../Preloader/Preloader";
+import OkPopup from "../okPopup/OkPopup";
 import { createUser, login, updateUser, getUser, deleteMovie, getMySavedMovies, createMovie } from "../../utils/MainApi";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-
-//export default withRouter(Header);
+import { parseNewMovieData } from "../../utils/MoviesParser";
 
 function App() {
 
@@ -42,12 +42,22 @@ function App() {
   const [isNavMenuOpened, setIsNavMenuOpened] = React.useState(false);
   const [isErrorPopupOpened, setIsErrorPopupOpened] = React.useState(false);
   const [isPreloaderOpened, setIsPreloaderOpened] = React.useState(false);
+  const [isOkPopupOpened, setisOkPopupOpened] = React.useState(false);
   const [errorName, setErrorName] = React.useState("Что-то пошло не так");
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
 
   const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
   const jwt = localStorage.getItem('jwt');
+
+  const headerBlue = (currentPage === "/");
+  const headerDark = (currentPage === '/movies' || currentPage === '/saved-movies' || currentPage === '/profile');
+
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const isMobile = (width <= 768);
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
 
   function openMenu() {
     setIsNavMenuOpened(true);
@@ -61,33 +71,23 @@ function App() {
     setCurrentPage(location.pathname.toLowerCase());
   }, [location]);
 
-  const [width, setWidth] = React.useState(window.innerWidth);
-
-  const isMobile = (width <= 768);
-
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-
   React.useEffect(() => {
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
   });
 
-
-  const headerBlue = (currentPage === "/");
-  const headerDark = (currentPage === '/movies' || currentPage === '/saved-movies' || currentPage === '/profile');
-
   function closeErrorPopup() {
     setIsErrorPopupOpened(false);
   }
 
+  function closeOkPopup() {
+    setisOkPopupOpened(false);
+  }
 
-
-
-
-
-
+  function whenError(err) {
+    setErrorName(err);
+    setIsErrorPopupOpened(true);
+  }
 
   // MOVIES
 
@@ -95,7 +95,6 @@ function App() {
     setIsPreloaderOpened(true);
     getMySavedMovies(jwt)
       .then((res) => {
-        // console.log("got saved movies");
         localStorage.setItem("savedMovies", JSON.stringify(res.data));
         setIsPreloaderOpened(false);
       })
@@ -109,9 +108,11 @@ function App() {
 
   function saveMovie(data) {
     setIsPreloaderOpened(true);
-    createMovie(data, jwt)
+    console.log(data);
+    const newData = parseNewMovieData(data);
+    console.log(newData);
+    createMovie(newData, jwt)
       .then((res) => {
-        // console.log(res);
         localStorage.setItem("savedMovies", JSON.stringify([...localSavedMovies, res.data]));
         setIsPreloaderOpened(false);
       })
@@ -120,9 +121,9 @@ function App() {
         setIsErrorPopupOpened(true);
         setIsPreloaderOpened(false);
     })
-}
+  }
 
-  function deleteSavedMovie(movie) {
+  function deleteSavedMovie(movie, deletefromFilter) {
     setIsPreloaderOpened(true);
     const movieId = localSavedMovies.find((element) => (element.movieId === movie.id) || (element.movieId === movie.movieId))._id;
     deleteMovie(movieId, jwt)
@@ -130,38 +131,45 @@ function App() {
         if (res) {
           const newData = localSavedMovies.filter((item) => movieId !== item._id);
           localStorage.setItem("savedMovies", JSON.stringify(newData));
+          deletefromFilter(movie);
           setIsPreloaderOpened(false);
         }
       })
       .catch((err) => {
         whenError(err);
         setIsPreloaderOpened(false);
-
     })
   }
 
-  // React.useEffect(() => {
-  //   console.log(localSavedMovies, "local saved")
-  // }, [localSavedMovies]);
+  // AUTH AND USER
 
-  // AUTH
-
-  
+  function handleLogOut() {
+      localStorage.clear()
+      setCurrentUser([]);
+      setIsLoggedIn(false);
+      navigate("/");
+    }
 
   function whenLogin(user) {
     if (user) {
       localStorage.setItem("jwt", user.data);
       getSavedMovies(user.data);
-    }
-    // getMovies();
-    setIsLoggedIn(true);
-    navigate("/movies");
-  }
+    
 
-  function whenError(err) {
-    console.log(err);
-    // setErrorName(err.name);
-    // setIsErrorPopupOpened(true);
+      getUser(user.data)
+        .then((res) => {
+          localStorage.setItem("user", JSON.stringify(res.data));
+          setCurrentUser(res.data);
+        })
+        .catch((err) => {
+          whenError(err);
+          handleLogOut();
+        })
+
+
+      setIsLoggedIn(true);
+      navigate("/movies");
+    }
   }
 
   function handleRegister(data) {
@@ -195,7 +203,6 @@ function App() {
       .then((res) => {
         whenLogin(res);
         setIsPreloaderOpened(false);
-        
       })
       .catch((err) => {
         whenError(err)
@@ -210,9 +217,9 @@ function App() {
           .then((data) => {
             setIsLoggedIn(true);
             navigate(location.pathname);
-            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem("user", JSON.stringify(data.data));
             setIsLoggedIn(true);
-            setCurrentUser(data);
+            setCurrentUser(data.data);
             setIsPreloaderOpened(false);
           })
           .catch((err) => {
@@ -221,16 +228,23 @@ function App() {
             setIsLoggedIn(false);
           })
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
   
-  function handleLogOut() {
-    console.log("log out");
-      localStorage.clear()
-      setCurrentUser([]);
-      setIsLoggedIn(false);
-      navigate("/");
-    }
-
+  function updateUserInfo(data) {
+    setIsPreloaderOpened(true);
+    updateUser(data, jwt)
+      .then((res) => {
+        setCurrentUser(res.data);
+        setIsPreloaderOpened(false);
+        setisOkPopupOpened(true);
+      })
+      .catch((err) => {
+        whenError(err);
+        setIsErrorPopupOpened(true);
+    })
+  }
+  
     return (
       <CurrentUserContext.Provider value={currentUser}>
         <div className="app">
@@ -243,7 +257,7 @@ function App() {
               <Route element={isLoggedIn ? <Outlet /> : <Navigate to="/" />}>
                 <Route path="/movies" element={<Movies width={width} saveMovie={saveMovie} deleteSavedMovie={deleteSavedMovie} />} />
                 <Route path="/saved-movies" element={<SavedMovies width={width} getSavedMovies={getSavedMovies} deleteSavedMovie={deleteSavedMovie} />} />
-                <Route path="/profile" element={<Profile handleLogOut={handleLogOut} />} />
+                <Route path="/profile" element={<Profile handleLogOut={handleLogOut} updateUserInfo={updateUserInfo} />} />
               </Route>
 
               <Route exact path="/" element={<Main />} />
@@ -257,6 +271,7 @@ function App() {
           </main>
           <Footer />
           <ErrorPopup error={errorName} isOpen={isErrorPopupOpened} onClose={closeErrorPopup} />
+          <OkPopup isOpen={isOkPopupOpened} onClose={closeOkPopup} />
           <Preloader isOpen={isPreloaderOpened} />
         </div>
       </CurrentUserContext.Provider>

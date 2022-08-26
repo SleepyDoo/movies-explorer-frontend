@@ -3,7 +3,6 @@ import "./MoviesCardList.css"
 import React from 'react';
 
 const MoviesCardList = (props) => {
-    // console.log(props.movies);
     return (
         <div className="movies-card-list">
             <div className="movies-card-list__container">

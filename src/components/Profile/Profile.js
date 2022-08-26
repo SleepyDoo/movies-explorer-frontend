@@ -1,13 +1,11 @@
 import "./Profile.css"
 import React from 'react';
-// import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { validateEmail, validateName } from "../../utils/Validaton";
 
 const Profile = (props) => {
 
-    // const currentUser = React.useContext(CurrentUserContext);
-
-    const currentUser = { name: "name", email: "email@email.com" };
+    const currentUser = React.useContext(CurrentUserContext);
 
     const [email, setEmail] = React.useState(currentUser.email);
     const [name, setName] = React.useState(currentUser.name);
@@ -15,8 +13,6 @@ const Profile = (props) => {
     const [isNameValid, setIsNameValid] = React.useState(false);
     const [emailError, setEmailError] = React.useState("");
     const [isEmailValid, setIsEmailValid] = React.useState(false);
-    // const [isEmailChanged, setEmailIsChanged] = React.useState(email === currentUser.email);
-    // const [isNameChanged, setNameIsChanged] = React.useState(email === currentUser.name);
 
     
     const isEmailChanged = !(email === currentUser.email);
@@ -58,11 +54,16 @@ const Profile = (props) => {
         }
     }
 
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        props.updateUserInfo({ name: name, email: email });
+    }
+
     return (
         <div>
             <div className="profile">
                 <h2 className="profile__heading">Привет, Виталий!</h2>
-                <form className="profile-form" noValidate>
+                <form className="profile-form" noValidate onSubmit={handleSubmit}>
                     <div className="profile__container">
                         <label className="profile__label">Имя</label>
                         <input
@@ -90,11 +91,12 @@ const Profile = (props) => {
                     {isEmailValid ? null : <p className="profile__error">{emailError}</p>}
                     <button className={`profile__edit ${isFormValid ? "" : "profile__edit_inactive"}`}
                         type="submit"
-                        disabled={!isFormValid}>
+                        disabled={!isFormValid}
+                        >
                         Редактировать
                     </button>
                 </form>
-                <button className="profile__logout" onClick={props.handleLogOut}>Выйти из аккаунта</button>
+                <button type="button" className="profile__logout" onClick={props.handleLogOut}>Выйти из аккаунта</button>
             </div>
         </div>
     )

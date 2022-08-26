@@ -1,4 +1,5 @@
 import { MOVIES_API } from "./constants";
+import validator from 'validator'
 
 export function fixMovieDuraton(movie) {
     let hours;
@@ -27,31 +28,23 @@ export function fixMovieImageAndId(movie) {
 }
 
 export function filterMovies(array, key, isShort) {
-  // console.log(array);
-  // console.log(isShort, "checkbox");
-  // console.log(key, "key");
   key = key.toLowerCase();
   const found = array.filter((obj) => {
 
     if (isShort === (obj.duration <= 40)) {
       if (key === "") {
-        // console.log("key is empty");
         return obj;
         }
         if (obj.nameEN || obj.nameRU) {
           if (obj.nameRU) {
             const nameRU = obj.nameRU.toLowerCase();
-            // console.log("nameRu exists");
             if (nameRU.includes(key)) {
-              // console.log("1");
               return obj;
             }
           }
           if (obj.nameEN) {
             const nameEN = obj.nameEN.toLowerCase();
-            // console.log("nameEN exists");
             if (nameEN.includes(key)) {
-              // console.log("2");
               return obj;
             }
           }
@@ -59,6 +52,74 @@ export function filterMovies(array, key, isShort) {
       }
       return null;
     })
-  // console.log(found, "found");
   return found;
+}
+  
+export function parseNewMovieData({
+  country,
+  director,
+  duration,
+  year,
+  description,
+  image,
+  trailerLink,
+  nameRU,
+  nameEN,
+  thumbnail,
+  movieId}) {
+  
+  if (!country) {
+    country = "Неизвестно";
   }
+
+  if (!director) {
+    director = "Неизвестно";
+  }
+  
+  if (!duration || isNaN(duration)) {
+    duration = "00"
+  }
+
+  if (!year || !year.match(/\d\d\d\d/gi)[0] === year) {
+    year = "404";
+  }
+
+  if (!description) {
+    description = " ";
+  }
+
+  if (!image || !validator.isURL(image)) {
+    image = "https://sun9-80.userapi.com/s/v1/ig2/FXzZiELxAFbU4ePbx92iM7sHqTi9JcYVee_63IC8mEzKNOxfZ_mXfOtU4lyLwzPdnLV5JpIetaTZ5IJF5eUd7Qh9.jpg?size=200x200&quality=96&crop=0,0,599,599&ava=1"
+  }
+
+  if (!trailerLink || !validator.isURL(trailerLink)) {
+    trailerLink = "https://www.youtube.com/watch?v=W85oD8FEF78";
+  }
+
+  if (!nameRU) {
+    nameRU = " ";
+  }
+
+  if (!nameEN) {
+    nameEN = " ";
+  }
+
+  if (!thumbnail || !validator.isURL(thumbnail)) {
+    thumbnail = "https://sun9-80.userapi.com/s/v1/ig2/FXzZiELxAFbU4ePbx92iM7sHqTi9JcYVee_63IC8mEzKNOxfZ_mXfOtU4lyLwzPdnLV5JpIetaTZ5IJF5eUd7Qh9.jpg?size=200x200&quality=96&crop=0,0,599,599&ava=1";
+  }
+
+  return {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId
+  }
+
+}

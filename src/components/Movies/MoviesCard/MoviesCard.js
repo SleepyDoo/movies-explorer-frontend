@@ -11,9 +11,6 @@ const MoviesCard = (props) => {
     const checkIsMovieAdded = () => {
         
         const newData = savedMoviesfromStorage.some((element) => {
-            // console.log(element.movieId, "element id");
-            // console.log(props.allData.id, "all data id");
-            // console.log(savedMoviesfromStorage.some((element) => element.movieId === props.allData.id), "isAdded");
             return element.movieId === props.allData.id
         })
         return newData;
@@ -22,7 +19,6 @@ const MoviesCard = (props) => {
     let isMovieAdded = checkIsMovieAdded();
 
     function handleLikeButton() {
-        // console.log(props.allData, "allData")
         if (!isMovieAdded) {
             props.onLike(withFixedImg);  
             isMovieAdded = true;
