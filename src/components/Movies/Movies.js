@@ -35,7 +35,7 @@ const Movies = (props) => {
     }, [props.width]);
 
     React.useEffect(() => {
-        if (filteredData.length < initialMovieNum) {
+        if (filteredData.length <= initialMovieNum) {
             setIsMoreButtonVisible(false);
         } else {
             setIsMoreButtonVisible(true);
