@@ -13,12 +13,18 @@ const Login = (props) => {
     const [isEmailValid, setIsEmailValid] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState("");
     const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+    const [isPasswordErrorVisible, setPasswordErrorVisible] = React.useState(true);
+    const [isEmailErrorVisible, setIsEmailErrorVisible] = React.useState(true);
+    const [isFormValid, setIsFormValid] = React.useState(false);
 
-    const isFormValid = (isEmailValid && isPasswordValid);
+    React.useEffect(() => {
+        setIsFormValid(isEmailValid && isPasswordValid);
+    }, [isEmailValid, isPasswordValid])
 
     React.useEffect(() => {
         const validation = validateOther(password);
         setIsPasswordValid(validation.isValid);
+        setPasswordErrorVisible(validation.isValid);
         if (!validation.isValid) {
             setPasswordError(validation.error);
         }
@@ -27,10 +33,17 @@ const Login = (props) => {
     React.useEffect(() => {
         const validation = validateEmail(email);
         setIsEmailValid(validation.isValid);
+        setIsEmailErrorVisible(validation.isValid);
         if (!validation.isValid) {
             setEmailError(validation.error);
         }
     }, [email]);
+
+    React.useEffect(() => {
+        setPasswordErrorVisible(true);
+        setIsEmailErrorVisible(true);
+        setIsFormValid(false);
+    }, []);
 
     function handlePasswordChange(evt) {
         setPassword(evt.target.value);
@@ -67,24 +80,24 @@ const Login = (props) => {
                 <fieldset className="auth__fieldset">
                     <p className="auth__input-label">E-mail</p>
                     <input
-                        className={`auth__input ${isEmailValid ? "" : "auth__input_errored"}`}
+                        className={`auth__input ${isEmailValid || isEmailErrorVisible ? "" : "auth__input_errored"}`}
                         type="email"
                         name="email"
                         required
                         autoComplete="off"
                         value={email}
                         onChange={handleEmailChange} />
-                    {isEmailValid ? null : <p className="auth__error">{emailError}</p>}
+                    {isEmailValid || isEmailErrorVisible ? null : <p className="auth__error">{emailError}</p>}
                     <p className="auth__input-label">Пароль</p>
                     <input
-                        className={`auth__input ${isPasswordValid ? "" : "auth__input_errored"}`}
+                        className={`auth__input ${isPasswordValid || isPasswordErrorVisible ? "" : "auth__input_errored"}`}
                         type="password"
                         name="password"
                         required
                         autoComplete="off"
                         value={password}
                         onChange={handlePasswordChange} />
-                    {isPasswordValid ? null : <p className="auth__error">{passwordError}</p>}
+                    {isPasswordValid || isPasswordErrorVisible ? null : <p className="auth__error">{passwordError}</p>}
                 </fieldset>
                 <button type="submit" className={`auth__button ${isFormValid ? "" : "auth__button_inactive"}`} disabled={!isFormValid}>Войти</button>
             </form>

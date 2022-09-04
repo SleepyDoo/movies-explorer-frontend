@@ -1,10 +1,11 @@
 import "./AuthHeader.css"
 import React from 'react';
+import { Link } from "react-router-dom";
 
 const AuthHeader = () => {
     return (
         <header className="auth-header">
-            <div className="auth-header__logo" />
+            <Link to="/" className="auth-header__logo" />
         </header>
     )
 }

@@ -11,18 +11,24 @@ const Register = (props) => {
     const [password, setPassword] = React.useState("");
     const [name, setName] = React.useState("");
     const [nameError, setNameError] = React.useState("");
-    const [isNameValid, setIsNameValid] = React.useState(false);
+    const [isNameValid, setIsNameValid] = React.useState(true);
     const [emailError, setEmailError] = React.useState("");
-    const [isEmailValid, setIsEmailValid] = React.useState(false);
+    const [isEmailValid, setIsEmailValid] = React.useState(true);
     const [passwordError, setPasswordError] = React.useState("");
-    const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+    const [isPasswordValid, setIsPasswordValid] = React.useState(true);
+    const [isFormValid, setIsFormValid] = React.useState(false);
+    const [isNameErrorVisible, setIsNameErrorVisible] = React.useState(true);
+    const [isPasswordErrorVisible, setPasswordErrorVisible] = React.useState(true);
+    const [isEmailErrorVisible, setIsEmailErrorVisible] = React.useState(true);
 
-    const isFormValid = (isEmailValid && isNameValid && isPasswordValid);
+    React.useEffect(() => {
+        setIsFormValid(isEmailValid && isNameValid && isPasswordValid);
+    }, [isEmailValid, isNameValid, isPasswordValid]);
 
-    
     React.useEffect(() => {
         const validation = validateName(name);
         setIsNameValid(validation.isValid);
+        setIsNameErrorVisible(validation.isValid);
         if (!validation.isValid) {
             setNameError(validation.error);
         }
@@ -31,6 +37,7 @@ const Register = (props) => {
     React.useEffect(() => {
         const validation = validateOther(password);
         setIsPasswordValid(validation.isValid);
+        setPasswordErrorVisible(validation.isValid);
         if (!validation.isValid) {
             setPasswordError(validation.error);
         }
@@ -39,10 +46,24 @@ const Register = (props) => {
     React.useEffect(() => {
         const validation = validateEmail(email);
         setIsEmailValid(validation.isValid);
+        setIsEmailErrorVisible(validation.isValid);
         if (!validation.isValid) {
             setEmailError(validation.error);
         }
     }, [email]);
+
+
+    
+    React.useEffect(() => {
+        setPasswordErrorVisible(true);
+        setIsNameErrorVisible(true);
+        setIsEmailErrorVisible(true);
+        setIsFormValid(false);
+    }, []);
+
+
+
+
 
     function handlePasswordChange(evt) {
         setPassword(evt.target.value);
@@ -84,34 +105,34 @@ const Register = (props) => {
                 <fieldset className="auth__fieldset">
                     <p className="auth__input-label">Имя</p>
                     <input
-                        className={`auth__input ${isNameValid ? "" : "auth__input_errored"}`}
+                        className={`auth__input ${(isNameValid || isNameErrorVisible ) ? "" : "auth__input_errored"}`}
                         type="string"
                         name="name"
                         required
                         autoComplete="off"
                         onChange={handleNameChange}
                         value={name} />
-                    {isNameValid ? null : <p className="auth__error">{nameError}</p>}
+                    {(isNameValid || isNameErrorVisible ) ? null : <p className="auth__error">{nameError}</p>}
                     <p className="auth__input-label">E-mail</p>
                     <input
-                        className={`auth__input ${isEmailValid ? "" : "auth__input_errored"}`}
+                        className={`auth__input ${(isEmailValid || isEmailErrorVisible) ? "" : "auth__input_errored"}`}
                         type="email"
                         name="email"
                         required
                         autoComplete="off"
                         onChange={handleEmailChange}
                         value={email} />
-                    {isEmailValid ? null : <p className="auth__error">{emailError}</p>}
+                    {(isEmailValid || isEmailErrorVisible) ? null : <p className="auth__error">{emailError}</p>}
                     <p className="auth__input-label">Пароль</p>
                     <input
-                        className={`auth__input ${isPasswordValid ? "" : "auth__input_errored"}`}
+                        className={`auth__input ${(isPasswordValid || isPasswordErrorVisible )? "" : "auth__input_errored"}`}
                         type="password"
                         name="password"
                         required
                         autoComplete="off"
                         onChange={handlePasswordChange}
                         value={password} />
-                    {isPasswordValid ? null : <p className="auth__error">{passwordError}</p>}
+                    {(isPasswordValid || isPasswordErrorVisible ) ? null : <p className="auth__error">{passwordError}</p>}
                 </fieldset>
                 <button type="submit" className={`auth__button ${isFormValid ? "" : "auth__button_inactive"}`} disabled={!isFormValid}>Зарегистрироваться</button>
             </form>

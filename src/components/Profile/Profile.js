@@ -19,7 +19,6 @@ const Profile = (props) => {
     const isNameChanged = !(name === currentUser.name);
     const isFormValid = ((isEmailValid && isNameValid) && (isNameChanged || isEmailChanged));
 
-
     React.useEffect(() => {
         const validation = validateEmail(email);
         setIsEmailValid(validation.isValid);

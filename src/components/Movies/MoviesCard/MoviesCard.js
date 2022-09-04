@@ -9,11 +9,12 @@ const MoviesCard = (props) => {
     const fixedMovie = fixMovieDuraton(withFixedImg);
     
     const checkIsMovieAdded = () => {
-        
-        const newData = savedMoviesfromStorage.some((element) => {
-            return element.movieId === props.allData.id
-        })
-        return newData;
+        if (savedMoviesfromStorage) {
+            const newData = savedMoviesfromStorage.some((element) => {
+                return element.movieId === props.allData.id
+            })
+            return newData;
+        }
     }
 
     let isMovieAdded = checkIsMovieAdded();

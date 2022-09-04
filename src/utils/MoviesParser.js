@@ -27,29 +27,54 @@ export function fixMovieImageAndId(movie) {
   return {...movie, image: url, movieId: movie.id}
 }
 
-export function filterMovies(array, key, isShort) {
+export function filterMovies(array, key, isShort, isSaved) {
   key = key.toLowerCase();
   const found = array.filter((obj) => {
 
-    if (isShort === (obj.duration <= 40)) {
-      if (key === "") {
-        return obj;
-        }
-        if (obj.nameEN || obj.nameRU) {
-          if (obj.nameRU) {
-            const nameRU = obj.nameRU.toLowerCase();
-            if (nameRU.includes(key)) {
-              return obj;
+
+    if (isSaved) {
+      if (isShort === (obj.duration <= 40) || !isShort) {
+        if (key === "") {
+          return obj;
+          }
+          if (obj.nameEN || obj.nameRU) {
+            if (obj.nameRU) {
+              const nameRU = obj.nameRU.toLowerCase();
+              if (nameRU.includes(key)) {
+                return obj;
+              }
+            }
+            if (obj.nameEN) {
+              const nameEN = obj.nameEN.toLowerCase();
+              if (nameEN.includes(key)) {
+                return obj;
+              }
             }
           }
-          if (obj.nameEN) {
-            const nameEN = obj.nameEN.toLowerCase();
-            if (nameEN.includes(key)) {
-              return obj;
+        }
+    } else {
+      if (isShort === (obj.duration <= 40)) {
+        if (key === "") {
+          return obj;
+          }
+          if (obj.nameEN || obj.nameRU) {
+            if (obj.nameRU) {
+              const nameRU = obj.nameRU.toLowerCase();
+              if (nameRU.includes(key)) {
+                return obj;
+              }
+            }
+            if (obj.nameEN) {
+              const nameEN = obj.nameEN.toLowerCase();
+              if (nameEN.includes(key)) {
+                return obj;
+              }
             }
           }
         }
-      }
+    }
+    
+    
       return null;
     })
   return found;

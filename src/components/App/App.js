@@ -85,6 +85,7 @@ function App() {
   }
 
   function whenError(err) {
+    console.log(err);
     setErrorName(err);
     setIsErrorPopupOpened(true);
   }
@@ -108,9 +109,7 @@ function App() {
 
   function saveMovie(data) {
     setIsPreloaderOpened(true);
-    console.log(data);
     const newData = parseNewMovieData(data);
-    console.log(newData);
     createMovie(newData, jwt)
       .then((res) => {
         localStorage.setItem("savedMovies", JSON.stringify([...localSavedMovies, res.data]));
@@ -210,13 +209,12 @@ function App() {
       })
   }
 
-    React.useEffect(() => {
+  React.useEffect(() => {
       if (jwt) {
         setIsPreloaderOpened(true);
         getUser(jwt)
           .then((data) => {
             setIsLoggedIn(true);
-            navigate(location.pathname);
             localStorage.setItem("user", JSON.stringify(data.data));
             setIsLoggedIn(true);
             setCurrentUser(data.data);
@@ -226,10 +224,16 @@ function App() {
             whenError(err);
             localStorage.removeItem("jwt");
             setIsLoggedIn(false);
+            navigate("/signin");
           })
+      } else {
+        setIsLoggedIn(false);
+        if (!location.pathname === "/signin" || !location.pathname === "/signup") {
+          navigate("/");
+        }
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [location.pathname]);
   
   function updateUserInfo(data) {
     setIsPreloaderOpened(true);
@@ -242,6 +246,7 @@ function App() {
       .catch((err) => {
         whenError(err);
         setIsErrorPopupOpened(true);
+        setIsPreloaderOpened(false);
     })
   }
   
@@ -254,7 +259,7 @@ function App() {
           <main>
             <Routes>
 
-              <Route element={isLoggedIn ? <Outlet /> : <Navigate to="/" />}>
+              <Route element={isLoggedIn ? <Outlet /> : <Navigate to="" />}>
                 <Route path="/movies" element={<Movies width={width} saveMovie={saveMovie} deleteSavedMovie={deleteSavedMovie} />} />
                 <Route path="/saved-movies" element={<SavedMovies width={width} getSavedMovies={getSavedMovies} deleteSavedMovie={deleteSavedMovie} />} />
                 <Route path="/profile" element={<Profile handleLogOut={handleLogOut} updateUserInfo={updateUserInfo} />} />
@@ -262,9 +267,11 @@ function App() {
 
               <Route exact path="/" element={<Main />} />
 
-              <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-          
-              <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
+              <Route element={!isLoggedIn ? <Outlet /> : <Navigate to="movies" />}>
+                <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+                <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
+              </Route>
+              
 
               <Route path="*" element={<NotFound />} />
             </Routes>

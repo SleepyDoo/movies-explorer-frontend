@@ -40,7 +40,7 @@ const SearchForm = (props) => {
     }
 
     function saveFilterData(movies) {
-        let newData = filterMovies(movies, keyWord, isShort);
+        let newData = filterMovies(movies, keyWord, isShort, false);
         setFilterToData(newData);
         localStorage.setItem("filteredFilms", JSON.stringify({ films: newData, key: keyWord, isShort: isShort }));
     }

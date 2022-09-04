@@ -13,7 +13,7 @@ const SearchForm = (props) => {
     const [errorName, setErrorName] = React.useState("Что-то пошло не так");
     const [isNotFound, setIsNotFound] = React.useState(false);
 
-    const { setFilterToData, filteredData } = props;
+    const { setFilterToData } = props;
 
     function handleKeyWordChange(evt) {
         setKeyWord(evt.target.value);
@@ -24,10 +24,9 @@ const SearchForm = (props) => {
     }
 
     function saveFilterData() {
-        let newData = filterMovies(moviesFromStorage, keyWord, isShort);
+        let newData = filterMovies(moviesFromStorage, keyWord, isShort, true);
         if (newData.length < 1) {
             setFilterToData([]);
-            setKeyWord("");
             setIsNotFound(true);
             setTimeout(() => {
                 setIsNotFound(false)
@@ -38,13 +37,6 @@ const SearchForm = (props) => {
             setFilterToData(newData);
         }
     }
-
-    React.useEffect(() => {
-        if (filteredData.length < 1) {
-            setKeyWord("");
-            setIsShort(false);
-        }
-    }, [filteredData])
 
     function closeErrorPopup() {
         setIsErrorPopupOpened(false);
