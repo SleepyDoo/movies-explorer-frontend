@@ -1,11 +1,12 @@
 import "./FilterCheckbox.css"
+import React from "react";
 
 const FilterCheckbox = (props) => {
+
     return (
         <label className="filter-checkbox">
             <input className="filter-checkbox__checkbox"
                 type="checkbox"
-                id="short-films"
                 onChange={props.handler}
                 checked={props.value} />
             <div className="filter-checkbox__container" />

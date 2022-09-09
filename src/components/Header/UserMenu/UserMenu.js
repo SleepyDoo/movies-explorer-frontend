@@ -8,7 +8,7 @@ const UserMenu = () => {
         <div className="user-menu">
             <div className="user-menu__container">
                 <Link to="/Movies" className="user-menu__link" >Фильмы</Link>
-                <Link to="/Movies" className="user-menu__link user-menu__link_active">Сохранённые фильмы</Link>
+                <Link to="/Saved-movies" className="user-menu__link user-menu__link_active">Сохранённые фильмы</Link>
             </div>
 
             <ProfileButton />

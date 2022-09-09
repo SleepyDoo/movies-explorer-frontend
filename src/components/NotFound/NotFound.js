@@ -5,7 +5,7 @@ import { createBrowserHistory } from "history";
 
 const NotFound = () => {
 
-    let history = createBrowserHistory();
+    const history = createBrowserHistory();
 
     function back() {
         history.back();

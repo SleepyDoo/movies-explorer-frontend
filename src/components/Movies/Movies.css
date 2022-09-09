@@ -2,6 +2,22 @@
     padding: 0 70px;
 }
 
+.movies__not-found {
+    visibility: hidden;
+    opacity: 0;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 30px;
+    margin: 150px auto 0;
+    text-align: center;
+    color: rgba(139, 139, 139, 1);
+}
+
+.movies__not-found_visible {
+    visibility: visible;
+    opacity: 1;
+}
+
 @media screen and (max-width: 768px) {
     .movies {
         padding: 0 30px;
