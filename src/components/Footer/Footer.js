@@ -9,6 +9,7 @@ const Footer = () => {
                 <p className="footer__label">© 2022</p>
                 <div className="footer__links">
                     <a className="footer_link" href="https://practicum.yandex.ru/profile/web/" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
+                    <a className="footer_link" href="https://21-school.ru/" target="_blank" rel="noreferrer">School21</a>
                     <a className="footer_link" href="https://github.com/SleepyDoo" target="_blank" rel="noreferrer">Github</a>
                     <a className="footer_link" href="https://t.me/sleepydoo" target="_blank" rel="noreferrer">Telegram</a>
                 </div>
